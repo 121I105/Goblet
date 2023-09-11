@@ -106,54 +106,72 @@ public class Piece : MonoBehaviour
                     // もし衝突したオブジェクトのタグが"Ground"であれば
                     if (groundHit.collider.name == "cube1-1")
                     {
+                        // 駒の速度を半分にする
+                        sphere.GetComponent<Rigidbody>().velocity *= 0.5f;
                         // 駒の位置を地面の位置に合わせる
                         Vector3 newPiecePosition = new Vector3(0, 2, 0);
                         sphere.position = newPiecePosition;
                     }
                     if (groundHit.collider.name == "cube1-2")
                     {
+                        // 駒の速度を半分にする
+                        sphere.GetComponent<Rigidbody>().velocity *= 0.5f;
                         // 駒の位置を地面の位置に合わせる
                         Vector3 newPiecePosition = new Vector3(1.25f, 2, 0);
                         sphere.position = newPiecePosition;
                     }
                     if (groundHit.collider.name == "cube1-3")
                     {
+                        // 駒の速度を半分にする
+                        sphere.GetComponent<Rigidbody>().velocity *= 0.5f;
                         // 駒の位置を地面の位置に合わせる
                         Vector3 newPiecePosition = new Vector3(2.5f, 2, 0);
                         sphere.position = newPiecePosition;
                     }
                     if (groundHit.collider.name == "cube2-1")
                     {
+                        // 駒の速度を半分にする
+                        sphere.GetComponent<Rigidbody>().velocity *= 0.5f;
                         // 駒の位置を地面の位置に合わせる
                         Vector3 newPiecePosition = new Vector3(0, 2, 1.25f);
                         sphere.position = newPiecePosition;
                     }
                     if (groundHit.collider.name == "cube2-2")
                     {
+                        // 駒の速度を半分にする
+                        sphere.GetComponent<Rigidbody>().velocity *= 0.5f;
                         // 駒の位置を地面の位置に合わせる
                         Vector3 newPiecePosition = new Vector3(1.25f, 2, 1.25f);
                         sphere.position = newPiecePosition;
                     }
                     if (groundHit.collider.name == "cube2-3")
                     {
+                        // 駒の速度を半分にする
+                        sphere.GetComponent<Rigidbody>().velocity *= 0.5f;
                         // 駒の位置を地面の位置に合わせる
                         Vector3 newPiecePosition = new Vector3(2.5f, 2, 1.25f);
                         sphere.position = newPiecePosition;
                     }
                     if (groundHit.collider.name == "cube3-1")
                     {
+                        // 駒の速度を半分にする
+                        sphere.GetComponent<Rigidbody>().velocity *= 0.5f;
                         // 駒の位置を地面の位置に合わせる
                         Vector3 newPiecePosition = new Vector3(0, 2, 2.5f);
                         sphere.position = newPiecePosition;
                     }
                     if (groundHit.collider.name == "cube3-2")
                     {
+                        // 駒の速度を半分にする
+                        sphere.GetComponent<Rigidbody>().velocity *= 0.5f;
                         // 駒の位置を地面の位置に合わせる
                         Vector3 newPiecePosition = new Vector3(1.25f, 2, 2.5f);
                         sphere.position = newPiecePosition;
                     }
                     if (groundHit.collider.name == "cube3-3")
                     {
+                        // 駒の速度を半分にする
+                        sphere.GetComponent<Rigidbody>().velocity *= 0.5f;
                         // 駒の位置を地面の位置に合わせる
                         Vector3 newPiecePosition = new Vector3(2.5f, 2, 2.5f);
                         sphere.position = newPiecePosition;
