@@ -26,21 +26,22 @@ public class Piece : MonoBehaviour
     public PieceTeam team;   // 駒の所属チーム（青、オレンジ）
     public int number;       // 駒の番号
 
-    // 駒の占有能力を返すメソッドを追加
-    public int GetOccupationPower()
+    // 駒の強さを取得するメソッド
+    public int GetStrength()
     {
         switch (type)
         {
             case PieceType.Big:
-                return 3;   // 大きい駒の占有能力は3とする
+                return 3;
             case PieceType.Medium:
-                return 2;   // 中間の駒の占有能力は2とする
+                return 2;
             case PieceType.Small:
-                return 1;   // 小さい駒の占有能力は1とする
+                return 1;
             default:
-                return 0;   // ありえないが、デフォルト値として0を返す
+                return 0;
         }
     }
+
 
 
     // 駒のアセットパスを生成するプライベートメソッド

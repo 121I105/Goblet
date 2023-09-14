@@ -14,8 +14,19 @@ public class GameManager : MonoBehaviour
     private Camera camera_object;  // カメラオブジェクト
     private RaycastHit hit;  // Raycastの結果を格納するオブジェクト
 
-    public GameObject BlueBig1;  // 青プレイヤーの石のプレハブ
-    public GameObject OrangeBig1; // オレンジプレイヤーの石のプレハブ
+    public GameObject BlueBig1;
+    public GameObject BlueBig2;
+    public GameObject BlueMedium1;
+    public GameObject BlueMedium2;
+    public GameObject BlueSmall1;
+    public GameObject BlueSmall2;
+    public GameObject OrangeBig1;
+    public GameObject OrangeBig2;
+    public GameObject OrangeMedium1;
+    public GameObject OrangeMedium2;
+    public GameObject OrangeSmall1;
+    public GameObject OrangeSmall2;
+
 
     public global::System.Int32 CurrentPlayer { get => currentPlayer; set => currentPlayer = value; }
 
@@ -37,7 +48,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        /*if (Input.GetMouseButtonDown(0))  // マウスの左ボタンがクリックされた場合
+        if (Input.GetMouseButtonDown(0))  // マウスの左ボタンがクリックされた場合
         {
             Ray ray = camera_object.ScreenPointToRay(Input.mousePosition);  // マウスの位置からRayを作成
 
@@ -68,7 +79,7 @@ public class GameManager : MonoBehaviour
                     }
                 }
             }
-        }*/
+        }
         
     }
 
