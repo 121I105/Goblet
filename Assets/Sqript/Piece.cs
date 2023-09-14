@@ -17,12 +17,31 @@ public enum PieceTeam
     Orange   // オレンジチーム
 }
 
+
+
 // 駒を表すクラス
 public class Piece : MonoBehaviour
 {
     public PieceType type;   // 駒の種類（大、中、小）
     public PieceTeam team;   // 駒の所属チーム（青、オレンジ）
     public int number;       // 駒の番号
+
+    // 駒の占有能力を返すメソッドを追加
+    public int GetOccupationPower()
+    {
+        switch (type)
+        {
+            case PieceType.Big:
+                return 3;   // 大きい駒の占有能力は3とする
+            case PieceType.Medium:
+                return 2;   // 中間の駒の占有能力は2とする
+            case PieceType.Small:
+                return 1;   // 小さい駒の占有能力は1とする
+            default:
+                return 0;   // ありえないが、デフォルト値として0を返す
+        }
+    }
+
 
     // 駒のアセットパスを生成するプライベートメソッド
     private string GetAssetPath()

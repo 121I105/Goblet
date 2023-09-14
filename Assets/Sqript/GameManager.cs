@@ -72,59 +72,98 @@ public class GameManager : MonoBehaviour
         
     }
 
+      
+
     private bool CheckStone(int color)
     {
         int count = 0;
         bool hasWon = false;
 
-        for (int i = 0; i < 3; i++)  // 横方向のラインをチェック
+        // 横方向のラインをチェック
+        for (int i = 0; i < 3; i++)
         {
+            count = 0;  // カウントのリセット
             for (int j = 0; j < 3; j++)
             {
-                if (squares[i, j] == EMPTY || squares[i, j] != color)
+                Piece piece = GetPieceOnSquare(new Vector3(i, j, 0));
+                if (piece == null || piece.Color != color || !piece.gameObject.activeSelf)
                 {
-                    count = 0;  // 空きスペースまたは相手の石がある場合、カウントをリセット
+                    count = 0;
                 }
                 else
                 {
-                    count++;  // 自分の石がある場合、カウントを増加
+                    count++;
                 }
 
-                if (count == 3)  // カウントが3になったら勝利
-                {
-                    hasWon = true;
-                }
-            }
-
-            if (hasWon)
-            {
-                break;
-            }
-        }
-
-        for (int i = 0; i < 3; i++)  // 縦方向のラインをチェック
-        {
-            for (int j = 0; j < 3; j++)
-            {
-                if (squares[j, i] == EMPTY || squares[j, i] != color)
-                {
-                    count = 0;  // 空きスペースまたは相手の石がある場合、カウントをリセット
-                }
-                else
-                {
-                    count++;  // 自分の石がある場合、カウントを増加
-                }
-
-                if (count == 3)  // カウントが3になったら勝利
+                if (count == 3)
                 {
                     hasWon = true;
                     break;
                 }
             }
+        }
 
-            if (hasWon)
+        // 縦方向のラインをチェック
+        for (int i = 0; i < 3 && !hasWon; i++)
+        {
+            count = 0;
+            for (int j = 0; j < 3; j++)
             {
-                break;
+                Piece piece = GetPieceOnSquare(new Vector3(j, i, 0));
+                if (piece == null || piece.Color != color || !piece.gameObject.activeSelf)
+                {
+                    count = 0;
+                }
+                else
+                {
+                    count++;
+                }
+
+                if (count == 3)
+                {
+                    hasWon = true;
+                    break;
+                }
+            }
+        }
+
+        // 斜めの勝利判定 (左上から右下)
+        count = 0;
+        for (int i = 0; i < 3 && !hasWon; i++)
+        {
+            Piece piece = GetPieceOnSquare(new Vector3(i, i, 0));
+            if (piece != null && piece.Color == color && piece.gameObject.activeSelf)
+            {
+                count++;
+                if (count == 3)
+                {
+                    hasWon = true;
+                    break;
+                }
+            }
+            else
+            {
+                count = 0;
+            }
+        }
+
+        // 斜めの勝利判定 (左下から右上)
+        count = 0;
+        for (int i = 0; i < 3 && !hasWon; i++)
+        {
+            Piece piece = GetPieceOnSquare(new Vector3(i, 2 - i, 0));
+            if (piece != null && piece.Color == color && piece.gameObject.activeSelf)
+            {
+                count++;
+                if (count == 3)
+                {
+                    hasWon = true;
+                    break;
+                }
+            }
+            else
+            {
+                count = 0;
             }
         }
 
@@ -139,8 +178,10 @@ public class GameManager : MonoBehaviour
                 Debug.Log("オレンジの勝ち");
             }
         }
-        return hasWon;  // 勝利したかどうかを返す
+
+        return hasWon;
     }
+
 
     private void InitializeArray()
     {
