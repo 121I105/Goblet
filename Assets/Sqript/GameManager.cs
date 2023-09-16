@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        if (Input.GetMouseButtonDown(0))  // マウスの左ボタンがクリックされた場合
+        /*if (Input.GetMouseButtonDown(0))  // マウスの左ボタンがクリックされた場合
         {
             Ray ray = camera_object.ScreenPointToRay(Input.mousePosition);  // マウスの位置からRayを作成
 
@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
                     }
                 }
             }
-        }
+        }*/
     }
 
     private bool CheckStone(PieceTeam color)
@@ -198,7 +198,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    
+
     // 与えられた3D座標位置（position）からPieceを取得する関数
     private Piece GetPieceOnSquare(Vector3 position)
     {
