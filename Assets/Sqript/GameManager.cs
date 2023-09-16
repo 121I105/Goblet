@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private int[,] squares = new int[3,3];  // 3x3のゲームボードの状態を表す配列
+    private int[,] squares = new int[3, 3];  // 3x3のゲームボードの状態を表す配列
 
     private const int EMPTY = 0;  // ゲームボードの空きスペースを表す定数
     private const int Blue = 1;   // 青プレイヤーを表す定数
@@ -27,9 +27,7 @@ public class GameManager : MonoBehaviour
     public GameObject OrangeSmall1;
     public GameObject OrangeSmall2;
 
-
     public global::System.Int32 CurrentPlayer { get => currentPlayer; set => currentPlayer = value; }
-
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +36,6 @@ public class GameManager : MonoBehaviour
 
         InitializeArray();  // ゲームボードの初期化
     }
-
 
     // Update is called once per frame
     void Update()
@@ -80,10 +77,7 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        
     }
-
-      
 
     private bool CheckStone(int color)
     {
@@ -193,7 +187,6 @@ public class GameManager : MonoBehaviour
         return hasWon;
     }
 
-
     private void InitializeArray()
     {
         for (int i = 0; i < 3; i++)  // ゲームボードの状態を空きスペースで初期化
@@ -203,5 +196,29 @@ public class GameManager : MonoBehaviour
                 squares[i, j] = EMPTY;
             }
         }
+    }
+
+    // 与えられた3D座標位置（position）からPieceを取得する関数
+    private Piece GetPieceOnSquare(Vector3 position)
+    {
+        // Rayが当たったオブジェクトを格納するための配列を宣言
+        RaycastHit[] hits = Physics.RaycastAll(position, Vector3.up, 1.0f);
+
+        // Rayが当たったオブジェクトを1つずつチェック
+        foreach (RaycastHit hit in hits)
+        {
+            // 当たったオブジェクトからPieceコンポーネントを取得
+            Piece piece = hit.collider.gameObject.GetComponent<Piece>();
+            
+            // Pieceコンポーネントが取得できた場合
+            if (piece != null)
+            {
+                // ピースを見つけたらそれを返す
+                return piece;
+            }
+        }
+
+        // ピースが見つからなかった場合はnullを返す
+        return null;
     }
 }

@@ -99,6 +99,9 @@ public class Piece : MonoBehaviour
                 {
                     isGrabbing = true;   // つかんでいる状態にする
                     sphere = hit.transform; // オブジェクトのTransformを保持
+
+                    // PlayerのRigidbodyを無効にする
+                    sphere.GetComponent<Rigidbody>().isKinematic = true;
                     
                 }
             }
@@ -118,6 +121,9 @@ public class Piece : MonoBehaviour
             if (Input.GetMouseButtonUp(0))
             {
                 isGrabbing = false; // つかんでいる状態を解除
+
+                // PlayerのRigidbodyを有効にする
+                sphere.GetComponent<Rigidbody>().isKinematic = false;
 
                 // 衝突判定
                 RaycastHit groundHit;
