@@ -17,32 +17,12 @@ public enum PieceTeam
     Orange   // オレンジチーム
 }
 
-
-
 // 駒を表すクラス
 public class Piece : MonoBehaviour
 {
     public PieceType type;   // 駒の種類（大、中、小）
     public PieceTeam team;   // 駒の所属チーム（青、オレンジ）
     public int number;       // 駒の番号
-
-    // 駒の強さを取得するメソッド
-    public int GetStrength()
-    {
-        switch (type)
-        {
-            case PieceType.Big:
-                return 3;
-            case PieceType.Medium:
-                return 2;
-            case PieceType.Small:
-                return 1;
-            default:
-                return 0;
-        }
-    }
-
-
 
     // 駒のアセットパスを生成するプライベートメソッド
     private string GetAssetPath()
@@ -99,9 +79,6 @@ public class Piece : MonoBehaviour
                 {
                     isGrabbing = true;   // つかんでいる状態にする
                     sphere = hit.transform; // オブジェクトのTransformを保持
-
-                    // PlayerのRigidbodyを無効にする
-                    sphere.GetComponent<Rigidbody>().isKinematic = true;
                     
                 }
             }
@@ -121,9 +98,6 @@ public class Piece : MonoBehaviour
             if (Input.GetMouseButtonUp(0))
             {
                 isGrabbing = false; // つかんでいる状態を解除
-
-                // PlayerのRigidbodyを有効にする
-                sphere.GetComponent<Rigidbody>().isKinematic = false;
 
                 // 衝突判定
                 RaycastHit groundHit;

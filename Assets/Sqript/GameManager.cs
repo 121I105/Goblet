@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (CheckStone(Blue) || CheckStone(Orange))  // 青かオレンジのどちらかが勝利している場合、入力を受け付けない
+        if (CheckStone(PieceTeam.Blue) || CheckStone(PieceTeam.Orange))  // 青かオレンジのどちらかが勝利している場合、入力を受け付けない
         {
             return;
         }
@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private bool CheckStone(int color)
+    private bool CheckStone(PieceTeam color)
     {
         int count = 0;
         bool hasWon = false;
@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
             for (int j = 0; j < 3; j++)
             {
                 Piece piece = GetPieceOnSquare(new Vector3(i, j, 0));
-                if (piece == null || piece.Color != color || !piece.gameObject.activeSelf)
+                if (piece == null || piece.team != color || !piece.gameObject.activeSelf)
                 {
                     count = 0;
                 }
@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour
             for (int j = 0; j < 3; j++)
             {
                 Piece piece = GetPieceOnSquare(new Vector3(j, i, 0));
-                if (piece == null || piece.Color != color || !piece.gameObject.activeSelf)
+                if (piece == null || piece.team != color || !piece.gameObject.activeSelf)
                 {
                     count = 0;
                 }
@@ -137,7 +137,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < 3 && !hasWon; i++)
         {
             Piece piece = GetPieceOnSquare(new Vector3(i, i, 0));
-            if (piece != null && piece.Color == color && piece.gameObject.activeSelf)
+            if (piece != null && piece.team == color && piece.gameObject.activeSelf)
             {
                 count++;
                 if (count == 3)
@@ -157,7 +157,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < 3 && !hasWon; i++)
         {
             Piece piece = GetPieceOnSquare(new Vector3(i, 2 - i, 0));
-            if (piece != null && piece.Color == color && piece.gameObject.activeSelf)
+            if (piece != null && piece.team == color && piece.gameObject.activeSelf)
             {
                 count++;
                 if (count == 3)
@@ -174,11 +174,11 @@ public class GameManager : MonoBehaviour
 
         if (hasWon)
         {
-            if (color == Blue)
+            if (color == PieceTeam.Blue)
             {
                 Debug.Log("青の勝ち");
             }
-            else
+            else if (color == PieceTeam.Orange)
             {
                 Debug.Log("オレンジの勝ち");
             }
@@ -198,6 +198,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    
     // 与えられた3D座標位置（position）からPieceを取得する関数
     private Piece GetPieceOnSquare(Vector3 position)
     {
