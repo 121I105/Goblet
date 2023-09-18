@@ -44,39 +44,6 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
-
-        /*if (Input.GetMouseButtonDown(0))  // マウスの左ボタンがクリックされた場合
-        {
-            Ray ray = camera_object.ScreenPointToRay(Input.mousePosition);  // マウスの位置からRayを作成
-
-            if (Physics.Raycast(ray, out hit))  // Rayがオブジェクトに当たったかどうかの判定
-            {
-                int x = (int)hit.collider.gameObject.transform.position.x;  // 当たったオブジェクトの位置からx座標を取得
-                int z = (int)hit.collider.gameObject.transform.position.z;  // 当たったオブジェクトの位置からz座標を取得
-
-                if (squares[z, x] == EMPTY)  // クリックされた位置が空きスペースの場合
-                {
-                    if (currentPlayer == Blue)  // 現在のプレイヤーが青の場合
-                    {
-                        squares[z, x] = Blue;  // ゲームボードの位置を青に設定
-
-                        GameObject stone = Instantiate(BlueBig1);  // 青の石のプレハブからオブジェクトを生成
-                        stone.transform.position = hit.collider.gameObject.transform.position;  // 生成したオブジェクトの位置を設定
-
-                        currentPlayer = Orange;  // プレイヤーをオレンジに切り替え
-                    }
-                    else if (currentPlayer == Orange)  // 現在のプレイヤーがオレンジの場合
-                    {
-                        squares[z, x] = Orange;  // ゲームボードの位置をオレンジに設定
-
-                        GameObject stone = Instantiate(OrangeBig1);  // オレンジの石のプレハブからオブジェクトを生成
-                        stone.transform.position = hit.collider.gameObject.transform.position;  // 生成したオブジェクトの位置を設定
-
-                        currentPlayer = Blue;  // プレイヤーを青に切り替え
-                    }
-                }
-            }
-        }*/
     }
 
     private bool CheckStone(PieceTeam color)

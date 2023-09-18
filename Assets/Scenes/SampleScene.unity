@@ -3197,7 +3197,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlueBig1: {fileID: 6684215269552785491, guid: d2a773ef92320c9488b3cb8422d572ab, type: 3}
+  BlueBig2: {fileID: 0}
+  BlueMedium1: {fileID: 0}
+  BlueMedium2: {fileID: 0}
+  BlueSmall1: {fileID: 0}
+  BlueSmall2: {fileID: 0}
   OrangeBig1: {fileID: 3005028671234800590, guid: 98f821a4735ee41428015e603f0d7871, type: 3}
+  OrangeBig2: {fileID: 0}
+  OrangeMedium1: {fileID: 0}
+  OrangeMedium2: {fileID: 0}
+  OrangeSmall1: {fileID: 0}
+  OrangeSmall2: {fileID: 0}
 --- !u!4 &1964608817
 Transform:
   m_ObjectHideFlags: 0
