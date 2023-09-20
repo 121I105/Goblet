@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 51383869}
   m_Layer: 0
   m_Name: cube2-3
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -344,7 +344,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8131744737447220723, guid: e93c2eb950ff7804498635ecf8800cd4, type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Player1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -408,7 +408,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5297850472195837270, guid: 7a125f1c291bb7c47ab1da4b14c93afc, type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Player1
       objectReference: {fileID: 0}
     - target: {fileID: 6400867964946792256, guid: 7a125f1c291bb7c47ab1da4b14c93afc, type: 3}
       propertyPath: m_Enabled
@@ -520,7 +520,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6690087653202549984, guid: 8abf77cabfa252844ba595134df28a01, type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Player1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -591,7 +591,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7971172658883111727, guid: 933e8b7d6357d7844bf4a000819c4e2d, type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Player1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -622,7 +622,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3033903648009129021, guid: 5dd8890381614944da3b65d50221462d, type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Player1
       objectReference: {fileID: 0}
     - target: {fileID: 4536503597502858976, guid: 5dd8890381614944da3b65d50221462d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -689,7 +689,7 @@ GameObject:
   - component: {fileID: 563836322}
   m_Layer: 0
   m_Name: cube1-2
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -853,7 +853,7 @@ GameObject:
   - component: {fileID: 586804781}
   m_Layer: 0
   m_Name: cube1-3
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -958,7 +958,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 948213941062379867, guid: 2444ff7523a913f44a612db8c236ec2d, type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Player2
       objectReference: {fileID: 0}
     - target: {fileID: 1225254203772639773, guid: 2444ff7523a913f44a612db8c236ec2d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1240,7 +1240,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6394845947571429796, guid: a85f6b84399c3f141945781c74044bf6, type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Player2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1498,7 +1498,7 @@ GameObject:
   - component: {fileID: 749212686}
   m_Layer: 0
   m_Name: cube2-2
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1640,7 +1640,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3806972947203577257, guid: 7eb5b69a97b3b2f46963f130e6e83b9e, type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Player2
       objectReference: {fileID: 0}
     - target: {fileID: 4142407249662809384, guid: 7eb5b69a97b3b2f46963f130e6e83b9e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1767,7 +1767,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6684215269552785491, guid: d2a773ef92320c9488b3cb8422d572ab, type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Player1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2041,7 +2041,7 @@ GameObject:
   - component: {fileID: 964451402}
   m_Layer: 0
   m_Name: Stage
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2085,7 +2085,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 271343066102400884, guid: 0387e3d72b396ba4d918fbb118ce0b91, type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Player2
       objectReference: {fileID: 0}
     - target: {fileID: 4069718618311644636, guid: 0387e3d72b396ba4d918fbb118ce0b91, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2156,7 +2156,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3005028671234800590, guid: 98f821a4735ee41428015e603f0d7871, type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Player2
       objectReference: {fileID: 0}
     - target: {fileID: 7445559589572152214, guid: 98f821a4735ee41428015e603f0d7871, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2220,7 +2220,7 @@ GameObject:
   - component: {fileID: 1149070671}
   m_Layer: 0
   m_Name: cube3-3
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2362,7 +2362,7 @@ GameObject:
   - component: {fileID: 1293131854}
   m_Layer: 0
   m_Name: cube2-1
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2716,7 +2716,7 @@ GameObject:
   - component: {fileID: 1560779711}
   m_Layer: 0
   m_Name: cube3-2
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2821,7 +2821,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1455636493884421032, guid: 19d376e6cb10e7249a445941f2e5bf38, type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Player2
       objectReference: {fileID: 0}
     - target: {fileID: 2555797004799798586, guid: 19d376e6cb10e7249a445941f2e5bf38, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2892,7 +2892,7 @@ GameObject:
   - component: {fileID: 1699826306}
   m_Layer: 0
   m_Name: cube3-1
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3178,7 +3178,7 @@ GameObject:
   - component: {fileID: 1964608817}
   - component: {fileID: 1964608816}
   m_Layer: 0
-  m_Name: GameController
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3197,17 +3197,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlueBig1: {fileID: 6684215269552785491, guid: d2a773ef92320c9488b3cb8422d572ab, type: 3}
-  BlueBig2: {fileID: 0}
-  BlueMedium1: {fileID: 0}
-  BlueMedium2: {fileID: 0}
-  BlueSmall1: {fileID: 0}
-  BlueSmall2: {fileID: 0}
+  BlueBig2: {fileID: 831719384}
+  BlueMedium1: {fileID: 1856103921}
+  BlueMedium2: {fileID: 1293936345}
+  BlueSmall1: {fileID: 893567283}
+  BlueSmall2: {fileID: 675211887}
   OrangeBig1: {fileID: 3005028671234800590, guid: 98f821a4735ee41428015e603f0d7871, type: 3}
-  OrangeBig2: {fileID: 0}
-  OrangeMedium1: {fileID: 0}
-  OrangeMedium2: {fileID: 0}
-  OrangeSmall1: {fileID: 0}
-  OrangeSmall2: {fileID: 0}
+  OrangeBig2: {fileID: 1158128726}
+  OrangeMedium1: {fileID: 1452900100}
+  OrangeMedium2: {fileID: 748753860}
+  OrangeSmall1: {fileID: 40464474}
+  OrangeSmall2: {fileID: 1848616013}
 --- !u!4 &1964608817
 Transform:
   m_ObjectHideFlags: 0
