@@ -75,7 +75,7 @@ public class Piece : MonoBehaviour
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
                 // 当たったオブジェクトのタグが"Player"の場合
-                if (hit.collider.tag == "Player")
+                if (hit.collider.tag == "Player1" || hit.collider.tag == "Player2")
                 {
                     isGrabbing = true;   // つかんでいる状態にする
                     sphere = hit.transform; // オブジェクトのTransformを保持
@@ -176,7 +176,6 @@ public class Piece : MonoBehaviour
                         Vector3 newPiecePosition = new Vector3(2.5f, 2, 2.5f);
                         sphere.position = newPiecePosition;
                     }
-                    
                 }    
             }               
         }
