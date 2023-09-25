@@ -24,6 +24,9 @@ public class Piece : MonoBehaviour
     public PieceTeam team;   // 駒の所属チーム（青、オレンジ）
     public int number;       // 駒の番号
 
+    private bool isGrabbing; // マウスがつかんでいるかどうかのフラグ
+    private GameManager gameManager; // GameManagerへの参照
+
     // 駒のアセットパスを生成するプライベートメソッド
     private string GetAssetPath()
     {
@@ -50,14 +53,16 @@ public class Piece : MonoBehaviour
     }
 
     Plane plane;             // マウスクリック時に生成される平面
-    bool isGrabbing;         // マウスがつかんでいるかどうかのフラグ
     Transform sphere;          // つかんでいるオブジェクトのTransform
 
-        // Start is called before the first frame update
+    // Start is called before the first frame update
     void Start()
     {
         // 平面の定義：法線ベクトル(Vector3.up)がy軸方向で、位置(Vector3.up)が原点上にある平面
         plane = new Plane(Vector3.up, Vector3.up);
+
+        // GameManagerへの参照を取得
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
 
@@ -71,15 +76,21 @@ public class Piece : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             RaycastHit hit;
-            // Rayが他のオブジェクトに当たったかチェック
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-            {
-                // 当たったオブジェクトのタグが"Player"の場合
-                if (hit.collider.tag == "Player1" || hit.collider.tag == "Player2")
+                // Rayが他のオブジェクトに当たったかチェック
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity))
                 {
-                    isGrabbing = true;   // つかんでいる状態にする
-                    sphere = hit.transform; // オブジェクトのTransformを保持
-                    
+                    // 当たったオブジェクトのタグが"Player"の場合
+                if (hit.collider.tag == "Player1" && gameManager.CurrentPlayer == (int)PieceTeam.Blue)
+                {
+                    // Player1のターンでPlayer1の駒をつかんでいる場合の処理
+                    isGrabbing = true;
+                    sphere = hit.transform;
+                }
+                else if (hit.collider.tag == "Player2" && gameManager.CurrentPlayer == (int)PieceTeam.Orange)
+                {
+                    // Player2のターンでPlayer2の駒をつかんでいる場合の処理
+                    isGrabbing = true;
+                    sphere = hit.transform;
                 }
             }
         }
@@ -175,6 +186,12 @@ public class Piece : MonoBehaviour
                         // 駒の位置を地面の位置に合わせる
                         Vector3 newPiecePosition = new Vector3(2.5f, 2, 2.5f);
                         sphere.position = newPiecePosition;
+                    }
+                    // もし衝突したオブジェクトのタグが"Ground"であれば
+                    if (groundHit.collider.CompareTag("Ground"))
+                    {
+                        // ターンを切り替える
+                        gameManager.SwitchTurn();
                     }
                 }    
             }               

@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     public GameObject OrangeSmall2;
 
     public global::System.Int32 CurrentPlayer { get => currentPlayer; set => currentPlayer = value; }
+    private bool isPlayer1Turn = true; // Player1のターンから始める
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +36,11 @@ public class GameManager : MonoBehaviour
         camera_object = GameObject.Find("Main Camera").GetComponent<Camera>();  // シーン内のメインカメラを取得
 
         InitializeArray();  // ゲームボードの初期化
+
+        // 最初に青のターンにする
+        // 最初のターンを設定
+        CurrentPlayer = (int)PieceTeam.Blue; // 青のターンに設定
+        Debug.Log("現在のターン: 青");
     }
 
     // Update is called once per frame
@@ -188,5 +194,24 @@ public class GameManager : MonoBehaviour
 
         // ピースが見つからなかった場合はnullを返す
         return null;
+    }
+
+    // Player1とPlayer2のターンを交互に切り替えるメソッド
+    public void SwitchTurn()
+    {
+        if (isPlayer1Turn)
+        {
+            // Player1のターン終了
+            isPlayer1Turn = false;
+            CurrentPlayer = (int)PieceTeam.Orange; // オレンジのターンに切り替え
+            Debug.Log("現在のターン: オレンジ");
+        }
+        else
+        {
+            // Player2のターン終了
+            isPlayer1Turn = true;
+            CurrentPlayer = (int)PieceTeam.Blue; // 青のターンに切り替え
+            Debug.Log("現在のターン: 青");
+        }
     }
 }
