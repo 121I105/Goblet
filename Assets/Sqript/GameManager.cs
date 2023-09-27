@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     private int currentPlayer = Blue;  // 現在のプレイヤー（初期値は青）
     private Camera camera_object;  // カメラオブジェクト
     private RaycastHit hit;  // Raycastの結果を格納するオブジェクト
+  
 
     public GameObject BlueBig1;
     public GameObject BlueBig2;
