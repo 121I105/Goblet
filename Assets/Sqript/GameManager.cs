@@ -28,6 +28,24 @@ public class GameManager : MonoBehaviour
     public GameObject OrangeSmall1;
     public GameObject OrangeSmall2;
 
+    
+
+//    private Dictionary<string, Vector3> cellNameToPosition = new Dictionary<string, Vector3>
+//{
+//    { "cube1-1", new Vector3(0, 2, 0) },
+//    { "cube1-2", new Vector3(1.25f, 2, 0) },
+//    { "cube1-3", new Vector3(2.5f, 2, 0) },
+
+//    { "cube2-1", new Vector3(0, 1.25f, 0) },
+//    { "cube2-2", new Vector3(1.25f, 1.25f, 0) },
+//    { "cube2-3", new Vector3(2.5f, 1.25f, 0) },
+
+//    { "cube3-1", new Vector3(0, 0.5f, 0) },
+//    { "cube3-2", new Vector3(1.25f, 0.5f, 0) },
+//    { "cube3-3", new Vector3(2.5f, 0.5f, 0) }
+//};
+
+
     public global::System.Int32 CurrentPlayer { get => currentPlayer; set => currentPlayer = value; }
     private bool isPlayer1Turn = true; // Player1のターンから始める
 
@@ -42,6 +60,7 @@ public class GameManager : MonoBehaviour
         // 最初のターンを設定
         CurrentPlayer = (int)PieceTeam.Blue; // 青のターンに設定
         Debug.Log("現在のターン: 青");
+        
     }
 
     // Update is called once per frame
@@ -52,6 +71,32 @@ public class GameManager : MonoBehaviour
             return;
         }
     }
+
+   
+
+    //private Piece GetPieceAtPosition(Vector3 position)
+    //{
+    //    int x = Mathf.FloorToInt(position.x);
+    //    int y = Mathf.FloorToInt(position.y);
+
+    //    if (x >= 0 && x < 3 && y >= 0 && y < 3)
+    //    {
+    //        return boardSquares[x, y].CurrentPiece;
+    //    }
+
+    //    return null;
+    //}
+
+    //public void MoveSphereToPosition(Transform sphere, RaycastHit groundHit)
+    //{
+    //    if (cellNameToPosition.TryGetValue(groundHit.collider.name, out Vector3 newPiecePosition))
+    //    {
+    //        sphere.GetComponent<Rigidbody>().velocity *= 0.5f;
+    //        sphere.position = newPiecePosition;
+    //    }
+    //}
+
+
 
     private bool CheckStone(PieceTeam color)
     {

@@ -28,6 +28,8 @@ public class Piece : MonoBehaviour
 
     private bool isGrabbing; // マウスがつかんでいるかどうかのフラグ
     private GameManager gameManager; // GameManagerへの参照
+    private Vector3 originalPosition;  // ここで変数を宣言
+
 
     public int GetStrength() //駒の強さの設定
     {
@@ -103,6 +105,7 @@ public class Piece : MonoBehaviour
                 if (hit.collider.tag == "Player1" && gameManager.CurrentPlayer == (int)PieceTeam.Blue)
                 {
                     // Player1のターンでPlayer1の駒をつかんでいる場合の処理
+                    originalPosition = hit.transform.position;  // ここで位置を保存
                     isGrabbing = true;
                     sphere = hit.transform;
                 }
@@ -111,6 +114,7 @@ public class Piece : MonoBehaviour
                     // Player2のターンでPlayer2の駒をつかんでいる場合の処理
                     // ここで駒の前回の位置を保存
                     previousPosition = hit.transform.position;
+                    originalPosition = hit.transform.position;  // ここで位置を保存
                     isGrabbing = true;
                     sphere = hit.transform;
                 }
@@ -132,105 +136,83 @@ public class Piece : MonoBehaviour
             {
                 isGrabbing = false; // つかんでいる状態を解除
 
+
                 // 衝突判定
                 RaycastHit groundHit;
                 if (Physics.Raycast(sphere.position, Vector3.down, out groundHit, Mathf.Infinity))
                 {
                     Vector3 newPiecePosition; // ここで宣言
+
                     // もし衝突したオブジェクトのタグが"Ground"であれば
-                    if (groundHit.collider.name == "cube1-1")
+                    if (groundHit.collider.CompareTag("Ground"))
                     {
-                        // 駒の速度を半分にする
-                        sphere.GetComponent<Rigidbody>().velocity *= 0.5f;
-                        // 駒の位置を地面の位置に合わせる
-                        newPiecePosition = new Vector3(0, 2, 0);
-                        sphere.position = newPiecePosition;
-                    }
-                    // もし衝突したオブジェクトの名前が"cube1-2"であれば
-                    if (groundHit.collider.name == "cube1-2")
-                    {
-                        // 駒の速度を半分にする
-                        sphere.GetComponent<Rigidbody>().velocity *= 0.5f;
-                        // 駒の位置を地面の位置に合わせる
-                        newPiecePosition = new Vector3(1.25f, 2, 0);  // 位置を"cube1-2"に合わせて変更
-                        sphere.position = newPiecePosition;
-                    
-                    }
+                        // そのマス目に別の駒が存在する場合の処理
+                        Piece existingPiece = groundHit.collider.GetComponent<Piece>();
+                        if (existingPiece)
+                        {
+                            // 駒を比較して新しい駒の方が強いかチェック
+                            if (sphere.GetComponent<Piece>().GetStrength() > existingPiece.GetStrength())
+                            {
+                                existingPiece.gameObject.SetActive(false); // 既存の駒を非アクティブに
+                            }
+                            else
+                            {
+                                sphere.position = sphere.GetComponent<Piece>().originalPosition; // 新しい駒を元の位置に戻す
+                                return;
+                            }
+                        }
 
-                    // もし衝突したオブジェクトの名前が"cube1-3"であれば
-                    if (groundHit.collider.name == "cube1-3")
-                    {
                         // 駒の速度を半分にする
                         sphere.GetComponent<Rigidbody>().velocity *= 0.5f;
-                        // 駒の位置を地面の位置に合わせる
-                        newPiecePosition = new Vector3(2.5f, 2, 0);
-                        sphere.position = newPiecePosition;
-                    }
 
-                    if (groundHit.collider.name == "cube1-3")
+                        // オブジェクトの名前に応じて、新しい駒の位置を設定
+                        switch (groundHit.collider.name)
                         {
-                            // 駒の速度を半分にする
-                            sphere.GetComponent<Rigidbody>().velocity *= 0.5f;
-                            // 駒の位置を地面の位置に合わせる
-                            newPiecePosition = new Vector3(2.5f, 2, 0);
-                            sphere.position = newPiecePosition;
+                            case "cube1-1":
+                                newPiecePosition = new Vector3(0, 2, 0);
+                                break;
+                            case "cube1-2":
+                                newPiecePosition = new Vector3(1.25f, 2, 0);
+                                break;
+                            case "cube1-3":
+                                newPiecePosition = new Vector3(2.5f, 2, 0);
+                                break;
+                            case "cube2-1":
+                                newPiecePosition = new Vector3(0, 2, 1.25f);
+                                break;
+                            case "cube2-2":
+                                newPiecePosition = new Vector3(1.25f, 2, 1.25f);
+                                break;
+                            case "cube2-3":
+                                newPiecePosition = new Vector3(2.5f, 2, 1.25f);
+                                break;
+                            case "cube3-1":
+                                newPiecePosition = new Vector3(0, 2, 2.5f);
+                                break;
+                            case "cube3-2":
+                                newPiecePosition = new Vector3(1.25f, 2, 2.5f);
+                                break;
+                            case "cube3-3":
+                                newPiecePosition = new Vector3(2.5f, 2, 2.5f);
+                                break;
+
+                            // 他のケースについても同様に追加してください。
+                            // ...
+                            default:
+                                return;
                         }
-                        if (groundHit.collider.name == "cube2-1")
-                        {
-                            // 駒の速度を半分にする
-                            sphere.GetComponent<Rigidbody>().velocity *= 0.5f;
-                            // 駒の位置を地面の位置に合わせる
-                            newPiecePosition = new Vector3(0, 2, 1.25f);
-                            sphere.position = newPiecePosition;
-                        }
-                        if (groundHit.collider.name == "cube2-2")
-                        {
-                            // 駒の速度を半分にする
-                            sphere.GetComponent<Rigidbody>().velocity *= 0.5f;
-                            // 駒の位置を地面の位置に合わせる
-                            newPiecePosition = new Vector3(1.25f, 2, 1.25f);
-                            sphere.position = newPiecePosition;
-                        }
-                        if (groundHit.collider.name == "cube2-3")
-                        {
-                            // 駒の速度を半分にする
-                            sphere.GetComponent<Rigidbody>().velocity *= 0.5f;
-                            // 駒の位置を地面の位置に合わせる
-                            newPiecePosition = new Vector3(2.5f, 2, 1.25f);
-                            sphere.position = newPiecePosition;
-                        }
-                        if (groundHit.collider.name == "cube3-1")
-                        {
-                            // 駒の速度を半分にする
-                            sphere.GetComponent<Rigidbody>().velocity *= 0.5f;
-                            // 駒の位置を地面の位置に合わせる
-                            newPiecePosition = new Vector3(0, 2, 2.5f);
-                            sphere.position = newPiecePosition;
-                        }
-                        if (groundHit.collider.name == "cube3-2")
-                        {
-                            // 駒の速度を半分にする
-                            sphere.GetComponent<Rigidbody>().velocity *= 0.5f;
-                            // 駒の位置を地面の位置に合わせる
-                            newPiecePosition = new Vector3(1.25f, 2, 2.5f);
-                            sphere.position = newPiecePosition;
-                        }
-                        if (groundHit.collider.name == "cube3-3")
-                        {
-                            // 駒の速度を半分にする
-                            sphere.GetComponent<Rigidbody>().velocity *= 0.5f;
-                            // 駒の位置を地面の位置に合わせる
-                            newPiecePosition = new Vector3(2.5f, 2, 2.5f);
-                            sphere.position = newPiecePosition;
-                        }
+
+                        sphere.position = newPiecePosition;
                         // もし衝突したオブジェクトのタグが"Ground"であれば
                         if (groundHit.collider.CompareTag("Ground"))
                         {
                             // ターンを切り替える
                             gameManager.SwitchTurn();
                         }
-                    
-                }    
+                    }
+                }
+
+                 
             }               
         }
     }
