@@ -9,13 +9,9 @@ public class GameManager : MonoBehaviour
     private const int EMPTY = 0;  // ゲームボードの空きスペースを表す定数
     private const int Blue = 1;   // 青プレイヤーを表す定数
     private const int Orange = -1; // オレンジプレイヤーを表す定数
-
-    private int currentPlayer = Blue;  // 現在のプレイヤー（初期値は青）
+    private int currentPlayer = EMPTY;  // 現在のプレイヤー（初期値は青）
     private Camera camera_object;  // カメラオブジェクト
     private RaycastHit hit;  // Raycastの結果を格納するオブジェクト
-   
-
-
 
     public GameObject BlueBig1;
     public GameObject BlueBig2;
@@ -29,8 +25,6 @@ public class GameManager : MonoBehaviour
     public GameObject OrangeMedium2;
     public GameObject OrangeSmall1;
     public GameObject OrangeSmall2;
-
-    
 
 //    private Dictionary<string, Vector3> cellNameToPosition = new Dictionary<string, Vector3>
 //{
@@ -46,7 +40,6 @@ public class GameManager : MonoBehaviour
 //    { "cube3-2", new Vector3(1.25f, 0.5f, 0) },
 //    { "cube3-3", new Vector3(2.5f, 0.5f, 0) }
 //};
-
 
     public global::System.Int32 CurrentPlayer { get => currentPlayer; set => currentPlayer = value; }
     private bool isPlayer1Turn = true; // Player1のターンから始める
@@ -68,9 +61,15 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (CheckStone(PieceTeam.Blue) || CheckStone(PieceTeam.Orange))  // 青かオレンジのどちらかが勝利している場合、入力を受け付けない
+        if (CheckWin())
         {
-            return;
+            // 勝利判定が成立した場合の処理をここに追加
+            Debug.Log(currentPlayer == Blue ? "青の勝利" : "オレンジの勝利");
+        }
+        else
+        {
+            // 勝利判定が成立しない場合、次のプレイヤーのターンに切り替える
+            SwitchTurn();
         }
     }
 
@@ -97,9 +96,6 @@ public class GameManager : MonoBehaviour
         // その後、sphereを目的地に移動させるロジックもここに追加することができます
     }
 
-
-
-
     //private Piece GetPieceAtPosition(Vector3 position)
     //{
     //    int x = Mathf.FloorToInt(position.x);
@@ -122,122 +118,55 @@ public class GameManager : MonoBehaviour
     //    }
     //}
 
-
-
-    private bool CheckStone(PieceTeam color)
+    public bool CheckWin()
     {
-        int count = 0;
-        bool hasWon = false;
-
         // 横方向のラインをチェック
         for (int i = 0; i < 3; i++)
         {
-            count = 0;  // カウントのリセット
-            for (int j = 0; j < 3; j++)
+            if (squares[i, 0] == currentPlayer && squares[i, 1] == currentPlayer && squares[i, 2] == currentPlayer)
             {
-                Piece piece = GetPieceOnSquare(new Vector3(i, j, 0));
-                if (piece == null || piece.team != color || !piece.gameObject.activeSelf)
-                {
-                    count = 0;
-                }
-                else
-                {
-                    count++;
-                }
-
-                if (count == 3)
-                {
-                    hasWon = true;
-                    break;
-                }
+                Debug.Log(currentPlayer == Blue ? "青の勝利" : "オレンジの勝利");
+                return true;
             }
         }
 
         // 縦方向のラインをチェック
-        for (int i = 0; i < 3 && !hasWon; i++)
+        for (int i = 0; i < 3; i++)
         {
-            count = 0;
-            for (int j = 0; j < 3; j++)
+            if (squares[0, i] == currentPlayer && squares[1, i] == currentPlayer && squares[2, i] == currentPlayer)
             {
-                Piece piece = GetPieceOnSquare(new Vector3(j, i, 0));
-                if (piece == null || piece.team != color || !piece.gameObject.activeSelf)
-                {
-                    count = 0;
-                }
-                else
-                {
-                    count++;
-                }
-
-                if (count == 3)
-                {
-                    hasWon = true;
-                    break;
-                }
+                Debug.Log(currentPlayer == Blue ? "青の勝利" : "オレンジの勝利");
+                return true;
             }
         }
 
-        // 斜めの勝利判定 (左上から右下)
-        count = 0;
-        for (int i = 0; i < 3 && !hasWon; i++)
+        // 斜めのラインをチェック（左上から右下）
+        if (squares[0, 0] == currentPlayer && squares[1, 1] == currentPlayer && squares[2, 2] == currentPlayer)
         {
-            Piece piece = GetPieceOnSquare(new Vector3(i, i, 0));
-            if (piece != null && piece.team == color && piece.gameObject.activeSelf)
-            {
-                count++;
-                if (count == 3)
-                {
-                    hasWon = true;
-                    break;
-                }
-            }
-            else
-            {
-                count = 0;
-            }
+            Debug.Log(currentPlayer == Blue ? "青の勝利" : "オレンジの勝利");
+            return true;
         }
 
-        // 斜めの勝利判定 (左下から右上)
-        count = 0;
-        for (int i = 0; i < 3 && !hasWon; i++)
+        // 斜めのラインをチェック（左下から右上）
+        if (squares[0, 2] == currentPlayer && squares[1, 1] == currentPlayer && squares[2, 0] == currentPlayer)
         {
-            Piece piece = GetPieceOnSquare(new Vector3(i, 2 - i, 0));
-            if (piece != null && piece.team == color && piece.gameObject.activeSelf)
-            {
-                count++;
-                if (count == 3)
-                {
-                    hasWon = true;
-                    break;
-                }
-            }
-            else
-            {
-                count = 0;
-            }
+            Debug.Log(currentPlayer == Blue ? "青の勝利" : "オレンジの勝利");
+            return true;
         }
 
-        if (hasWon)
-        {
-            if (color == PieceTeam.Blue)
-            {
-                Debug.Log("青の勝ち");
-            }
-            else if (color == PieceTeam.Orange)
-            {
-                Debug.Log("オレンジの勝ち");
-            }
-        }
-
-        return hasWon;
+        // 勝利条件を満たしていない場合はゲームは続行
+        return false;
     }
-
+    
+    //配列情報を初期化する
     private void InitializeArray()
     {
-        for (int i = 0; i < 3; i++)  // ゲームボードの状態を空きスペースで初期化
+        //for文を利用して配列にアクセスする
+        for (int i = 0; i < 3; i++)
         {
             for (int j = 0; j < 3; j++)
             {
+                //配列を空（値を０）にする
                 squares[i, j] = EMPTY;
             }
         }
