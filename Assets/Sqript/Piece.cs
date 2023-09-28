@@ -46,30 +46,7 @@ public class Piece : MonoBehaviour
         }
     }
 
-    // 駒のアセットパスを生成するプライベートメソッド
-    private string GetAssetPath()
-    {
-        string teamName = team.ToString();   // チーム名を取得
-        string typeName = "";                // 種類名を格納する変数
-        string numberName = number.ToString(); // 番号を文字列に変換して取得
-
-        // 駒の種類に応じて種類名を設定
-        switch (type)
-        {
-            case PieceType.Big:
-                typeName = "Big";
-                break;
-            case PieceType.Medium:
-                typeName = "Medium";
-                break;
-            case PieceType.Small:
-                typeName = "Small";
-                break;
-        }
-
-        // チーム名、種類名、番号を結合してアセットパスを生成
-        return teamName + typeName + numberName;
-    }
+    
 
     Plane plane;             // マウスクリック時に生成される平面
     Transform sphere;          // つかんでいるオブジェクトのTransform

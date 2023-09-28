@@ -13,7 +13,9 @@ public class GameManager : MonoBehaviour
     private int currentPlayer = Blue;  // 現在のプレイヤー（初期値は青）
     private Camera camera_object;  // カメラオブジェクト
     private RaycastHit hit;  // Raycastの結果を格納するオブジェクト
-  
+   
+
+
 
     public GameObject BlueBig1;
     public GameObject BlueBig2;
@@ -72,7 +74,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
-   
+    public void AttemptToCaptureSquare(Vector3 targetPosition, GameObject sphere)
+    {
+        // 目的地のマス目にある駒を取得
+        Piece movingPiece = sphere.GetComponent<Piece>();
+        Piece existingPiece = GetPieceOnSquare(targetPosition);
+
+        // マス目に駒があり、移動しようとしている駒が既存の駒よりも強力である場合
+        if (existingPiece != null && movingPiece.IsStrongerThan(existingPiece))
+        {
+            // 乗っ取られた駒の情報を保存
+            capturedPieces.Add(new CapturedPieceInfo
+            {
+                piece = existingPiece.gameObject,
+                originalPosition = existingPiece.transform.position
+            });
+
+            // 既存の駒を非アクティブに
+            existingPiece.gameObject.SetActive(false);
+        }
+
+        // その後、sphereを目的地に移動させるロジックもここに追加することができます
+    }
+
+
+
 
     //private Piece GetPieceAtPosition(Vector3 position)
     //{
