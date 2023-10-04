@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour
     private const int EMPTY = 0;  // ゲームボードの空きスペースを表す定数
     private const int Blue = 1;   // 青プレイヤーを表す定数
     private const int Orange = -1; // オレンジプレイヤーを表す定数
-    private int currentPlayer = EMPTY;  // 現在のプレイヤー（初期値は青）
+
+    private int currentPlayer = Blue;  // 現在のプレイヤー（初期値は青）
     private Camera camera_object;  // カメラオブジェクト
     private RaycastHit hit;  // Raycastの結果を格納するオブジェクト
 
@@ -26,21 +27,6 @@ public class GameManager : MonoBehaviour
     public GameObject OrangeSmall1;
     public GameObject OrangeSmall2;
 
-//    private Dictionary<string, Vector3> cellNameToPosition = new Dictionary<string, Vector3>
-//{
-//    { "cube1-1", new Vector3(0, 2, 0) },
-//    { "cube1-2", new Vector3(1.25f, 2, 0) },
-//    { "cube1-3", new Vector3(2.5f, 2, 0) },
-
-//    { "cube2-1", new Vector3(0, 1.25f, 0) },
-//    { "cube2-2", new Vector3(1.25f, 1.25f, 0) },
-//    { "cube2-3", new Vector3(2.5f, 1.25f, 0) },
-
-//    { "cube3-1", new Vector3(0, 0.5f, 0) },
-//    { "cube3-2", new Vector3(1.25f, 0.5f, 0) },
-//    { "cube3-3", new Vector3(2.5f, 0.5f, 0) }
-//};
-
     public global::System.Int32 CurrentPlayer { get => currentPlayer; set => currentPlayer = value; }
     private bool isPlayer1Turn = true; // Player1のターンから始める
 
@@ -55,118 +41,131 @@ public class GameManager : MonoBehaviour
         // 最初のターンを設定
         CurrentPlayer = (int)PieceTeam.Blue; // 青のターンに設定
         Debug.Log("現在のターン: 青");
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (CheckWin())
+        if (CheckStone(PieceTeam.Blue) || CheckStone(PieceTeam.Orange))  // 青かオレンジのどちらかが勝利している場合、入力を受け付けない
         {
-            // 勝利判定が成立した場合の処理をここに追加
-            Debug.Log(currentPlayer == Blue ? "青の勝利" : "オレンジの勝利");
-        }
-        else
-        {
-            // 勝利判定が成立しない場合、次のプレイヤーのターンに切り替える
-            SwitchTurn();
+            return;
         }
     }
 
-    public void AttemptToCaptureSquare(Vector3 targetPosition, GameObject sphere)
+    private bool CheckStone(PieceTeam color)
     {
-        // 目的地のマス目にある駒を取得
-        Piece movingPiece = sphere.GetComponent<Piece>();
-        Piece existingPiece = GetPieceOnSquare(targetPosition);
+        int count = 0;
+        bool hasWon = false;
 
-        // マス目に駒があり、移動しようとしている駒が既存の駒よりも強力である場合
-        if (existingPiece != null && movingPiece.IsStrongerThan(existingPiece))
-        {
-            // 乗っ取られた駒の情報を保存
-            capturedPieces.Add(new CapturedPieceInfo
-            {
-                piece = existingPiece.gameObject,
-                originalPosition = existingPiece.transform.position
-            });
-
-            // 既存の駒を非アクティブに
-            existingPiece.gameObject.SetActive(false);
-        }
-
-        // その後、sphereを目的地に移動させるロジックもここに追加することができます
-    }
-
-    //private Piece GetPieceAtPosition(Vector3 position)
-    //{
-    //    int x = Mathf.FloorToInt(position.x);
-    //    int y = Mathf.FloorToInt(position.y);
-
-    //    if (x >= 0 && x < 3 && y >= 0 && y < 3)
-    //    {
-    //        return boardSquares[x, y].CurrentPiece;
-    //    }
-
-    //    return null;
-    //}
-
-    //public void MoveSphereToPosition(Transform sphere, RaycastHit groundHit)
-    //{
-    //    if (cellNameToPosition.TryGetValue(groundHit.collider.name, out Vector3 newPiecePosition))
-    //    {
-    //        sphere.GetComponent<Rigidbody>().velocity *= 0.5f;
-    //        sphere.position = newPiecePosition;
-    //    }
-    //}
-
-    public bool CheckWin()
-    {
         // 横方向のラインをチェック
         for (int i = 0; i < 3; i++)
         {
-            if (squares[i, 0] == currentPlayer && squares[i, 1] == currentPlayer && squares[i, 2] == currentPlayer)
+            count = 0;  // カウントのリセット
+            for (int j = 0; j < 3; j++)
             {
-                Debug.Log(currentPlayer == Blue ? "青の勝利" : "オレンジの勝利");
-                return true;
+                Piece piece = GetPieceOnSquare(new Vector3(i, j, 0));
+                if (piece == null || piece.team != color || !piece.gameObject.activeSelf)
+                {
+                    count = 0;
+                }
+                else
+                {
+                    count++;
+                }
+
+                if (count == 3)
+                {
+                    hasWon = true;
+                    break;
+                }
             }
         }
 
         // 縦方向のラインをチェック
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 3 && !hasWon; i++)
         {
-            if (squares[0, i] == currentPlayer && squares[1, i] == currentPlayer && squares[2, i] == currentPlayer)
+            count = 0;
+            for (int j = 0; j < 3; j++)
             {
-                Debug.Log(currentPlayer == Blue ? "青の勝利" : "オレンジの勝利");
-                return true;
+                Piece piece = GetPieceOnSquare(new Vector3(j, i, 0));
+                if (piece == null || piece.team != color || !piece.gameObject.activeSelf)
+                {
+                    count = 0;
+                }
+                else
+                {
+                    count++;
+                }
+
+                if (count == 3)
+                {
+                    hasWon = true;
+                    break;
+                }
             }
         }
 
-        // 斜めのラインをチェック（左上から右下）
-        if (squares[0, 0] == currentPlayer && squares[1, 1] == currentPlayer && squares[2, 2] == currentPlayer)
+        // 斜めの勝利判定 (左上から右下)
+        count = 0;
+        for (int i = 0; i < 3 && !hasWon; i++)
         {
-            Debug.Log(currentPlayer == Blue ? "青の勝利" : "オレンジの勝利");
-            return true;
+            Piece piece = GetPieceOnSquare(new Vector3(i, i, 0));
+            if (piece != null && piece.team == color && piece.gameObject.activeSelf)
+            {
+                count++;
+                if (count == 3)
+                {
+                    hasWon = true;
+                    break;
+                }
+            }
+            else
+            {
+                count = 0;
+            }
         }
 
-        // 斜めのラインをチェック（左下から右上）
-        if (squares[0, 2] == currentPlayer && squares[1, 1] == currentPlayer && squares[2, 0] == currentPlayer)
+        // 斜めの勝利判定 (左下から右上)
+        count = 0;
+        for (int i = 0; i < 3 && !hasWon; i++)
         {
-            Debug.Log(currentPlayer == Blue ? "青の勝利" : "オレンジの勝利");
-            return true;
+            Piece piece = GetPieceOnSquare(new Vector3(i, 2 - i, 0));
+            if (piece != null && piece.team == color && piece.gameObject.activeSelf)
+            {
+                count++;
+                if (count == 3)
+                {
+                    hasWon = true;
+                    break;
+                }
+            }
+            else
+            {
+                count = 0;
+            }
         }
 
-        // 勝利条件を満たしていない場合はゲームは続行
-        return false;
+        if (hasWon)
+        {
+            if (color == PieceTeam.Blue)
+            {
+                Debug.Log("青の勝ち");
+            }
+            else if (color == PieceTeam.Orange)
+            {
+                Debug.Log("オレンジの勝ち");
+            }
+        }
+
+        return hasWon;
     }
-    
-    //配列情報を初期化する
+
     private void InitializeArray()
     {
-        //for文を利用して配列にアクセスする
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)  // ゲームボードの状態を空きスペースで初期化
         {
             for (int j = 0; j < 3; j++)
             {
-                //配列を空（値を０）にする
                 squares[i, j] = EMPTY;
             }
         }
