@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     public global::System.Int32 CurrentPlayer { get => currentPlayer; set => currentPlayer = value; }
     private bool isPlayer1Turn = true; // Player1のターンから始める
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,25 +47,28 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (CheckStone(PieceTeam.Blue) || CheckStone(PieceTeam.Orange))  // 青かオレンジのどちらかが勝利している場合、入力を受け付けない
-        {
+        // 使用する際はこのように呼び出す
+        if (CheckStone("Player1") || CheckStone("Player2")) {
             return;
         }
+        
+
     }
 
-    private bool CheckStone(PieceTeam color)
+
+    public bool CheckStone(string playerTag)
     {
         int count = 0;
         bool hasWon = false;
 
         // 横方向のラインをチェック
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 3 && !hasWon; i++)
         {
-            count = 0;  // カウントのリセット
+            count = 0;
             for (int j = 0; j < 3; j++)
             {
                 Piece piece = GetPieceOnSquare(new Vector3(i, j, 0));
-                if (piece == null || piece.team != color || !piece.gameObject.activeSelf)
+                if (piece == null || piece.gameObject.tag != playerTag || !piece.gameObject.activeSelf)
                 {
                     count = 0;
                 }
@@ -88,7 +92,7 @@ public class GameManager : MonoBehaviour
             for (int j = 0; j < 3; j++)
             {
                 Piece piece = GetPieceOnSquare(new Vector3(j, i, 0));
-                if (piece == null || piece.team != color || !piece.gameObject.activeSelf)
+                if (piece == null || piece.gameObject.tag != playerTag || !piece.gameObject.activeSelf)
                 {
                     count = 0;
                 }
@@ -110,7 +114,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < 3 && !hasWon; i++)
         {
             Piece piece = GetPieceOnSquare(new Vector3(i, i, 0));
-            if (piece != null && piece.team == color && piece.gameObject.activeSelf)
+            if (piece != null && piece.gameObject.tag == playerTag && piece.gameObject.activeSelf)
             {
                 count++;
                 if (count == 3)
@@ -130,7 +134,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < 3 && !hasWon; i++)
         {
             Piece piece = GetPieceOnSquare(new Vector3(i, 2 - i, 0));
-            if (piece != null && piece.team == color && piece.gameObject.activeSelf)
+            if (piece != null && piece.gameObject.tag == playerTag && piece.gameObject.activeSelf)
             {
                 count++;
                 if (count == 3)
@@ -147,11 +151,13 @@ public class GameManager : MonoBehaviour
 
         if (hasWon)
         {
-            if (color == PieceTeam.Blue)
+           
+
+            if (playerTag == "Player1")
             {
                 Debug.Log("青の勝ち");
             }
-            else if (color == PieceTeam.Orange)
+            else if (playerTag == "Player2")
             {
                 Debug.Log("オレンジの勝ち");
             }
@@ -159,6 +165,7 @@ public class GameManager : MonoBehaviour
 
         return hasWon;
     }
+
 
     private void InitializeArray()
     {
@@ -183,14 +190,20 @@ public class GameManager : MonoBehaviour
         {
             // 当たったオブジェクトからPieceコンポーネントを取得
             Piece piece = hit.collider.gameObject.GetComponent<Piece>();
-            
-            // Pieceコンポーネントが取得できた場合
+
             if (piece != null)
             {
+                Debug.Log("Found piece with tag " + piece.gameObject.tag);
                 // ピースを見つけたらそれを返す
                 return piece;
             }
+            else
+            {
+                Debug.Log("No piece found at position " + position);
+            }
         }
+
+        
 
         // ピースが見つからなかった場合はnullを返す
         return null;

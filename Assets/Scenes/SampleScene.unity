@@ -196,7 +196,6 @@ MonoBehaviour:
   type: 0
   team: 0
   number: 0
-  previousPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &51383868
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,7 +498,6 @@ MonoBehaviour:
   type: 0
   team: 0
   number: 0
-  previousPosition: {x: 0, y: 0, z: 0}
 --- !u!1001 &233120998
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -886,7 +884,6 @@ MonoBehaviour:
   type: 0
   team: 0
   number: 0
-  previousPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &586804780
 GameObject:
   m_ObjectHideFlags: 0
@@ -1211,7 +1208,6 @@ MonoBehaviour:
   type: 0
   team: 0
   number: 0
-  previousPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &676410466 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6684215269552785491, guid: d2a773ef92320c9488b3cb8422d572ab, type: 3}
@@ -1264,7 +1260,6 @@ MonoBehaviour:
   type: 0
   team: 0
   number: 0
-  previousPosition: {x: 0, y: 0, z: 0}
 --- !u!1001 &685231252
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1585,7 +1580,6 @@ MonoBehaviour:
   type: 0
   team: 0
   number: 0
-  previousPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &749212685
 GameObject:
   m_ObjectHideFlags: 0
@@ -1743,7 +1737,6 @@ MonoBehaviour:
   type: 0
   team: 0
   number: 0
-  previousPosition: {x: 0, y: 0, z: 0}
 --- !u!1001 &862284160
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1974,7 +1967,6 @@ MonoBehaviour:
   type: 0
   team: 0
   number: 0
-  previousPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &934852842
 GameObject:
   m_ObjectHideFlags: 0
@@ -2509,7 +2501,6 @@ MonoBehaviour:
   type: 0
   team: 0
   number: 0
-  previousPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1293131853
 GameObject:
   m_ObjectHideFlags: 0
@@ -2688,7 +2679,6 @@ MonoBehaviour:
   type: 0
   team: 0
   number: 0
-  previousPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1308562915
 GameObject:
   m_ObjectHideFlags: 0
@@ -2895,7 +2885,6 @@ MonoBehaviour:
   type: 0
   team: 0
   number: 0
-  previousPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1560779710
 GameObject:
   m_ObjectHideFlags: 0
@@ -3253,7 +3242,6 @@ MonoBehaviour:
   type: 0
   team: 0
   number: 0
-  previousPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1856103921 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6690087653202549984, guid: 8abf77cabfa252844ba595134df28a01, type: 3}
@@ -3327,7 +3315,6 @@ MonoBehaviour:
   type: 0
   team: 0
   number: 0
-  previousPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1904228463
 GameObject:
   m_ObjectHideFlags: 0
