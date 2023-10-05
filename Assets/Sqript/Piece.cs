@@ -68,11 +68,8 @@ public class Piece : MonoBehaviour
 
     // Update内に以下のような変更を加えます：
 
-    
-
     void Update()
     {
-
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -95,74 +92,67 @@ public class Piece : MonoBehaviour
                 }
                 else
                 {
-                    if (hit.collider.CompareTag("Ground"))
-                    {
-                        // 駒の新しい位置を地面のセルの位置に基づいて設定
-                        Vector3 newPiecePosition = hit.collider.transform.position + new Vector3(0, 2, 0); // 2は駒の高さとして仮定
+                    // 駒の新しい位置を地面のセルの位置に基づいて設定
+                    Vector3 newPiecePosition = hit.collider.transform.position + new Vector3(0, 2, 0); // 2は駒の高さとして仮定
 
-                        // 以前のコードのように、特定のセルの名前に基づいて位置を調整する場合
-                        if (hit.collider.name == "cube1-1")
-                        {
-                            newPiecePosition = new Vector3(0, 2, 0);
-                        }
-                        if (hit.collider.name == "cube1-2")
-                        {
-                            newPiecePosition = new Vector3(1.25f, 2, 0);
-                        }
-                        if (hit.collider.name == "cube1-3")
-                        {
-                            newPiecePosition = new Vector3(2.5f, 2, 0);
-                        }
-                        if (hit.collider.name == "cube2-1")
-                        {
-                            newPiecePosition = new Vector3(0, 2, 1.25f);
-                        }
-                        if (hit.collider.name == "cube2-2")
-                        {
-                            newPiecePosition = new Vector3(1.25f, 2, 1.25f);
-                        }
-                        if (hit.collider.name == "cube2-3")
-                        {
-                            newPiecePosition = new Vector3(2.5f, 2, 1.25f);
-                        }
-                        if (hit.collider.name == "cube3-1")
-                        {
-                            newPiecePosition = new Vector3(0, 2, 2.5f);
-                        }
-                        if (hit.collider.name == "cube3-2")
-                        {
-                            newPiecePosition = new Vector3(1.25f, 2, 2.5f);
-                        }
-                        if (hit.collider.name == "cube3-3")
-                        {
-                            newPiecePosition = new Vector3(2.5f, 2, 2.5f);
-                        }
-                        // 最終的に駒の位置を更新
-                        selectedPiece.position = newPiecePosition;
+                    // 以前のコードのように、特定のセルの名前に基づいて位置を調整する場合
+                    if (hit.collider.name == "cube1-1")
+                    {
+                        newPiecePosition = new Vector3(0, 2, 0);
+                    }
+                    if (hit.collider.name == "cube1-2")
+                    {
+                        newPiecePosition = new Vector3(1.25f, 2, 0);
+                    }
+                    if (hit.collider.name == "cube1-3")
+                    {
+                        newPiecePosition = new Vector3(2.5f, 2, 0);
+                    }
+                    if (hit.collider.name == "cube2-1")
+                    {
+                        newPiecePosition = new Vector3(0, 2, 1.25f);
+                    }
+                    if (hit.collider.name == "cube2-2")
+                    {
+                        newPiecePosition = new Vector3(1.25f, 2, 1.25f);
+                    }
+                    if (hit.collider.name == "cube2-3")
+                    {
+                        newPiecePosition = new Vector3(2.5f, 2, 1.25f);
+                    }
+                    if (hit.collider.name == "cube3-1")
+                    {
+                        newPiecePosition = new Vector3(0, 2, 2.5f);
+                    }
+                    if (hit.collider.name == "cube3-2")
+                    {
+                        newPiecePosition = new Vector3(1.25f, 2, 2.5f);
+                    }
+                    if (hit.collider.name == "cube3-3")
+                    {
+                        newPiecePosition = new Vector3(2.5f, 2, 2.5f);
+                    }
+                    // 最終的に駒の位置を更新
+                    selectedPiece.position = newPiecePosition;
                  
 
-                        // ここで勝利条件をチェック
-                        if (gameManager.CurrentPlayer == (int)PieceTeam.Blue)
-                        {
-                            gameManager.CheckStone("Player1");
-                        }
-                        else
-                        {
-                            gameManager.CheckStone("Player2");
-                        }
-
-
-                        // ターンを切り替える
-                        gameManager.SwitchTurn();
-                        
-
-                        // 駒の選択を解除
-                        selectedPiece = null;
+                    // ここで勝利条件をチェック
+                    if (gameManager.CurrentPlayer == (int)PieceTeam.Blue)
+                    {
+                        gameManager.CheckStone("Player1");
                     }
+                    else
+                    {
+                        gameManager.CheckStone("Player2");
+                    }
+
+                    // ターンを切り替える
+                    gameManager.SwitchTurn();
+                        
+                    // 駒の選択を解除
+                    selectedPiece = null;
                 }
             }
         }
     }
-
-
 }

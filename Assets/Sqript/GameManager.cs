@@ -30,7 +30,6 @@ public class GameManager : MonoBehaviour
     public global::System.Int32 CurrentPlayer { get => currentPlayer; set => currentPlayer = value; }
     private bool isPlayer1Turn = true; // Player1のターンから始める
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -51,10 +50,7 @@ public class GameManager : MonoBehaviour
         if (CheckStone("Player1") || CheckStone("Player2")) {
             return;
         }
-        
-
     }
-
 
     public bool CheckStone(string playerTag)
     {
@@ -151,8 +147,6 @@ public class GameManager : MonoBehaviour
 
         if (hasWon)
         {
-           
-
             if (playerTag == "Player1")
             {
                 Debug.Log("青の勝ち");
@@ -166,7 +160,6 @@ public class GameManager : MonoBehaviour
         return hasWon;
     }
 
-
     private void InitializeArray()
     {
         for (int i = 0; i < 3; i++)  // ゲームボードの状態を空きスペースで初期化
@@ -177,7 +170,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
 
     // 与えられた3D座標位置（position）からPieceを取得する関数
     private Piece GetPieceOnSquare(Vector3 position)
@@ -197,13 +189,7 @@ public class GameManager : MonoBehaviour
                 // ピースを見つけたらそれを返す
                 return piece;
             }
-            else
-            {
-                Debug.Log("No piece found at position " + position);
-            }
         }
-
-        
 
         // ピースが見つからなかった場合はnullを返す
         return null;
