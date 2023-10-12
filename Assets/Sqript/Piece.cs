@@ -27,29 +27,20 @@ public class Piece : MonoBehaviour
     private bool isGrabbing; // マウスがつかんでいるかどうかのフラグ
     private GameManager gameManager; // GameManagerへの参照
 
-    // 駒のアセットパスを生成するプライベートメソッド
-    private string GetAssetPath()
-    {
-        string teamName = team.ToString();   // チーム名を取得
-        string typeName = "";                // 種類名を格納する変数
-        string numberName = number.ToString(); // 番号を文字列に変換して取得
 
-        // 駒の種類に応じて種類名を設定
+    public int GetStrength() //駒の強さの設定
+    {
         switch (type)
         {
             case PieceType.Big:
-                typeName = "Big";
-                break;
+                return 3;
             case PieceType.Medium:
-                typeName = "Medium";
-                break;
+                return 2;
             case PieceType.Small:
-                typeName = "Small";
-                break;
+                return 1;
+            default:
+                return 0;
         }
-
-        // チーム名、種類名、番号を結合してアセットパスを生成
-        return teamName + typeName + numberName;
     }
 
     Plane plane;             // マウスクリック時に生成される平面
