@@ -2,14 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// 駒の種類を表す列挙型
-public enum PieceType
-{
-    Big,     // 大きな駒
-    Medium,  // 中程度の駒
-    Small    // 小さな駒
-}
-
 // 駒の所属チームを表す列挙型
 public enum PieceTeam
 {
@@ -20,28 +12,11 @@ public enum PieceTeam
 // 駒を表すクラス
 public class Piece : MonoBehaviour
 {
-    public PieceType type;   // 駒の種類（大、中、小）
     public PieceTeam team;   // 駒の所属チーム（青、オレンジ）
     public int number;       // 駒の番号
 
     private bool isGrabbing; // マウスがつかんでいるかどうかのフラグ
     private GameManager gameManager; // GameManagerへの参照
-
-    
-    public int GetStrength() //駒の強さの設定
-    {
-        switch (type)
-        {
-            case PieceType.Big:
-                return 3;
-            case PieceType.Medium:
-                return 2;
-            case PieceType.Small:
-                return 1;
-            default:
-                return 0;
-        }
-    }
 
     Plane plane;             // マウスクリック時に生成される平面
     Transform sphere;          // つかんでいるオブジェクトのTransform
