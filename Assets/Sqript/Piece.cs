@@ -27,7 +27,7 @@ public class Piece : MonoBehaviour
     private bool isGrabbing; // マウスがつかんでいるかどうかのフラグ
     private GameManager gameManager; // GameManagerへの参照
 
-
+    
     public int GetStrength() //駒の強さの設定
     {
         switch (type)
