@@ -13,7 +13,7 @@ public enum PieceTeam
 public class Piece : MonoBehaviour
 {
     public PieceTeam team;   // 駒の所属チーム（青、オレンジ）
-    public int number;       // 駒の番号
+ 
 
     private bool isGrabbing; // マウスがつかんでいるかどうかのフラグ
     private GameManager gameManager; // GameManagerへの参照
@@ -60,6 +60,23 @@ public class Piece : MonoBehaviour
                 {
                     // 駒の新しい位置を地面のセルの位置に基づいて設定
                     Vector3 newPiecePosition = hit.collider.transform.position + new Vector3(0, 2, 0); // 2は駒の高さとして仮定
+                    Piece existingPiece = hit.collider.GetComponent<Piece>();
+
+                    // クリックした場所に駒が存在する場合
+                    if (existingPiece != null)
+                    {
+                        Strength existingStrength = existingPiece.GetComponent<Strength>();
+                        Strength movingStrength = selectedPiece.GetComponent<Strength>();
+
+                        // 選択している駒がクリックした場所の駒よりも弱いか同じ場合
+                        if (movingStrength.GetStrength() <= existingStrength.GetStrength())
+                        {
+                            Debug.Log("Moving piece is weaker or equal. Cannot place here.");
+                            return; // 駒の移動処理を中止
+                        }
+
+
+                    }
 
                     // 以前のコードのように、特定のセルの名前に基づいて位置を調整する場合
                     if (hit.collider.name == "cube1-1")

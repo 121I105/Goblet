@@ -51,12 +51,12 @@ public class Strength : MonoBehaviour
         {
             int myStrength = GetStrength();
             int otherPieceStrength = otherStrength.GetStrength();
-
-            if (myStrength < otherPieceStrength)
+            // 自分の駒の強さが他の駒よりも大きい場合、他の駒を非アクティブ化する
+            if (myStrength > otherPieceStrength)
             {
-                // 自分の駒の強さが小さい場合、自分の駒を非アクティブ化する
-                gameObject.SetActive(false);
-                Debug.Log("My piece is weaker. Disabling my piece.");
+                collision.gameObject.SetActive(false);
+                Debug.Log("My piece is stronger. Disabling the other piece.");
+
             }
         }
     }
