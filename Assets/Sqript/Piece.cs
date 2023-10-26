@@ -117,17 +117,6 @@ public class Piece : MonoBehaviour
                     }
                     // 最終的に駒の位置を更新
                     selectedPiece.position = newPiecePosition;
-                 
-
-                    // ここで勝利条件をチェック
-                    if (gameManager.CurrentPlayer == (int)PieceTeam.Blue)
-                    {
-                        gameManager.CheckStone("Player1");
-                    }
-                    else
-                    {
-                        gameManager.CheckStone("Player2");
-                    }
 
                     // ターンを切り替える
                     gameManager.SwitchTurn();
