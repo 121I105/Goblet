@@ -14,7 +14,6 @@ public class Piece : MonoBehaviour
 {
     public PieceTeam team;   // 駒の所属チーム（青、オレンジ）
 
- 
     private bool isGrabbing; // マウスがつかんでいるかどうかのフラグ
     private GameManager gameManager; // GameManagerへの参照
 
@@ -42,8 +41,6 @@ public class Piece : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-
-
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
                 if (selectedPiece == null)
@@ -63,8 +60,6 @@ public class Piece : MonoBehaviour
                 {
                     // 駒の新しい位置を地面のセルの位置に基づいて設定
                     Vector3 newPiecePosition = hit.collider.transform.position + new Vector3(0, 2, 0); // 2は駒の高さとして仮定
-
-                
 
                     // 以前のコードのように、特定のセルの名前に基づいて位置を調整する場合
                     if (hit.collider.name == "cube1-1")
@@ -103,26 +98,9 @@ public class Piece : MonoBehaviour
                     {
                         newPiecePosition = new Vector3(2.5f, 2, 2.5f);
                     }
-                    
-                    // セルの入出処理を追加
-
-                    Cell currentCell = selectedPiece.GetComponentInParent<Cell>();
-                    Cell targetCell = hit.collider.GetComponent<Cell>();
-
-                    if (currentCell != null)
-                    {
-                        currentCell.ExitPiece(selectedPiece.gameObject);
-                    }
-
-                    if (targetCell != null && targetCell != currentCell)
-                    {
-                        targetCell.EnterPiece(selectedPiece.gameObject);
-                    }
-
 
                     // 最終的に駒の位置を更新
                     selectedPiece.position = newPiecePosition;
-
 
                     // ターンを切り替える
                     gameManager.SwitchTurn();

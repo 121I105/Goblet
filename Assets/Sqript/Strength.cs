@@ -27,6 +27,4 @@ public class Strength : MonoBehaviour
                 return 0;
         }
     }
-   
-
 }

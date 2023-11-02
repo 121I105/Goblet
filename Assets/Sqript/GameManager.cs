@@ -35,8 +35,6 @@ public class GameManager : MonoBehaviour
     {
         camera_object = GameObject.Find("Main Camera").GetComponent<Camera>();  // シーン内のメインカメラを取得
 
-      
-
         // 最初に青のターンにする
         // 最初のターンを設定
         CurrentPlayer = (int)PieceTeam.Blue; // 青のターンに設定
@@ -49,7 +47,6 @@ public class GameManager : MonoBehaviour
        
     }
 
-   
     // Player1とPlayer2のターンを交互に切り替えるメソッド
     public void SwitchTurn()
     {
