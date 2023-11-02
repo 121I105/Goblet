@@ -27,37 +27,6 @@ public class Strength : MonoBehaviour
                 return 0;
         }
     }
+   
 
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-
-    }
-
-    public void ActivatePiece()
-    {
-        gameObject.SetActive(true);
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        Strength otherStrength = collision.gameObject.GetComponent<Strength>();
-
-        if (otherStrength != null)
-        {
-            int myStrength = GetStrength();
-            int otherPieceStrength = otherStrength.GetStrength();
-            // 自分の駒の強さが他の駒よりも大きい場合、他の駒を非アクティブ化する
-            if (myStrength > otherPieceStrength)
-            {
-                collision.gameObject.SetActive(false);
-                Debug.Log("My piece is stronger. Disabling the other piece.");
-
-            }
-        }
-    }
 }

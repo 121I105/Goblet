@@ -38,8 +38,11 @@ public class Piece : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
+
+
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
@@ -60,6 +63,7 @@ public class Piece : MonoBehaviour
                 {
                     // 駒の新しい位置を地面のセルの位置に基づいて設定
                     Vector3 newPiecePosition = hit.collider.transform.position + new Vector3(0, 2, 0); // 2は駒の高さとして仮定
+
                 
 
                     // 以前のコードのように、特定のセルの名前に基づいて位置を調整する場合
@@ -99,19 +103,26 @@ public class Piece : MonoBehaviour
                     {
                         newPiecePosition = new Vector3(2.5f, 2, 2.5f);
                     }
+                    
+                    // セルの入出処理を追加
+
+                    Cell currentCell = selectedPiece.GetComponentInParent<Cell>();
+                    Cell targetCell = hit.collider.GetComponent<Cell>();
+
+                    if (currentCell != null)
+                    {
+                        currentCell.ExitPiece(selectedPiece.gameObject);
+                    }
+
+                    if (targetCell != null && targetCell != currentCell)
+                    {
+                        targetCell.EnterPiece(selectedPiece.gameObject);
+                    }
+
+
                     // 最終的に駒の位置を更新
                     selectedPiece.position = newPiecePosition;
-                 
 
-                    // ここで勝利条件をチェック
-                    if (gameManager.CurrentPlayer == (int)PieceTeam.Blue)
-                    {
-                        gameManager.CheckStone("Player1");
-                    }
-                    else
-                    {
-                        gameManager.CheckStone("Player2");
-                    }
 
                     // ターンを切り替える
                     gameManager.SwitchTurn();
