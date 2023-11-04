@@ -41,10 +41,120 @@ public class GameManager : MonoBehaviour
         Debug.Log("現在のターン: 青");
     }
 
+    // 勝利条件を判定するメソッド
+    private bool CheckWinCondition(int playerTag)
+    {
+        Vector3[] winPositionsGroup1 = new Vector3[]
+        {
+            new Vector3(0f, 0f, 0f),
+            new Vector3(1.25f, 0f, 0f),
+            new Vector3(2.5f, 0f, 0f)
+        };
+
+        Vector3[] winPositionsGroup2 = new Vector3[]
+        {
+            new Vector3(0f, 0f, 1.25f),
+            new Vector3(1.25f, 0f, 1.25f),
+            new Vector3(2.5f, 0f, 1.25f)
+        };
+
+        Vector3[] winPositionsGroup3 = new Vector3[]
+        {
+            new Vector3(0f, 0f, 2.5f),
+            new Vector3(1.25f, 0f, 2.5f),
+            new Vector3(2.5f, 0f, 2.5f)
+        };
+
+        Vector3[] winPositionsGroup4 = new Vector3[]
+        {
+            new Vector3(0f, 0f, 0f),
+            new Vector3(0f, 0f, 1.25f),
+            new Vector3(0f, 0f, 2.5f)
+        };
+
+        Vector3[] winPositionsGroup5 = new Vector3[]
+        {
+            new Vector3(1.25f, 0f, 0f),
+            new Vector3(1.25f, 0f, 1.25f),
+            new Vector3(1.25f, 0f, 2.5f)
+        };
+
+        Vector3[] winPositionsGroup6 = new Vector3[]
+        {
+            new Vector3(2.5f, 0f, 0f),
+            new Vector3(2.5f, 0f, 1.25f),
+            new Vector3(2.5f, 0f, 2.5f)
+        };
+
+        Vector3[] winPositionsGroup7 = new Vector3[]
+        {
+            new Vector3(0f, 0f, 0f),
+            new Vector3(1.25f, 0f, 1.25f),
+            new Vector3(2.5f, 0f, 2.5f)
+        };
+
+        Vector3[] winPositionsGroup8 = new Vector3[]
+        {
+            new Vector3(0f, 0f, 2.5f),
+            new Vector3(1.25f, 0f, 1.25f),
+            new Vector3(2.5f, 0f, 0f)
+        };
+
+        if (CheckWinGroup(winPositionsGroup1, playerTag) || CheckWinGroup(winPositionsGroup2, playerTag) || CheckWinGroup(winPositionsGroup3, playerTag) || CheckWinGroup(winPositionsGroup4, playerTag) || CheckWinGroup(winPositionsGroup5, playerTag) || CheckWinGroup(winPositionsGroup6, playerTag) || CheckWinGroup(winPositionsGroup7, playerTag) || CheckWinGroup(winPositionsGroup8, playerTag))        {
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool CheckWinGroup(Vector3[] winPositions, int playerTag)
+    {
+        int winCount = 0;
+
+        foreach (Vector3 position in winPositions)
+        {
+            int maxStrength = 0;
+
+            Collider[] colliders = Physics.OverlapBox(position, new Vector3(0.6f, 0.6f, 0.6f));
+            foreach (var collider in colliders)
+            {
+                if (collider.CompareTag("Player" + playerTag))
+                {
+                    Strength strengthComponent = collider.GetComponent<Strength>();
+                    if (strengthComponent != null)
+                    {
+                        maxStrength = Mathf.Max(maxStrength, strengthComponent.GetStrength());
+                    }
+                }
+            }
+
+            if (maxStrength > 0)
+            {
+                winCount++;
+                if (winCount >= 3)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     // Update is called once per frame
     void Update()
     {
-       
+       // 勝利条件を判定する
+        if (CheckWinCondition(1))
+        {
+            Debug.Log("Player 1の勝利！");
+            // ゲーム終了処理を行うか、必要に応じて勝利の演出を再生するなどの処理を行う
+        }
+        else if (CheckWinCondition(2))
+        {
+            Debug.Log("Player 2の勝利！");
+            // ゲーム終了処理を行うか、必要に応じて敗北の演出を再生するなどの処理を行う
+        }
     }
 
     // Player1とPlayer2のターンを交互に切り替えるメソッド
