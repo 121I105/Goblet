@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -174,5 +175,11 @@ public class GameManager : MonoBehaviour
             CurrentPlayer = (int)PieceTeam.Blue; // 青のターンに切り替え
             Debug.Log("現在のターン: 青");
         }
+    }
+
+    public void StartButton()
+    {
+        Debug.Log("ゲームスタート");
+        SceneManager.LoadScene("Main");
     }
 }
