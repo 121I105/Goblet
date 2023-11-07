@@ -31,6 +31,12 @@ public class GameManager : MonoBehaviour
     public global::System.Int32 CurrentPlayer { get => currentPlayer; set => currentPlayer = value; }
     private bool isPlayer1Turn = true; // Player1のターンから始める
 
+    private bool gameEnded = false; // ゲームが終了したかどうかを示すフラグ
+    public GameObject player1;
+    public GameObject player2;
+    public GameObject restart;
+    public GameObject title;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +46,11 @@ public class GameManager : MonoBehaviour
         // 最初のターンを設定
         CurrentPlayer = (int)PieceTeam.Blue; // 青のターンに設定
         Debug.Log("現在のターン: 青");
+
+        player1.SetActive(false);
+        player2.SetActive(false);
+        restart.SetActive(false);
+        title.SetActive(false);
     }
 
     // 勝利条件を判定するメソッド
@@ -145,16 +156,28 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       // 勝利条件を判定する
+        // ゲームが既に終了している場合は何もしない
+        if (gameEnded)
+        {
+            return;
+        }
+
+        // 勝利条件を判定する
         if (CheckWinCondition(1))
         {
             Debug.Log("Player 1の勝利！");
-            // ゲーム終了処理を行うか、必要に応じて勝利の演出を再生するなどの処理を行う
+            gameEnded = true; // ゲーム終了フラグを設定
+            player1.SetActive(true);
+            restart.SetActive(true);
+            title.SetActive(true);
         }
         else if (CheckWinCondition(2))
         {
             Debug.Log("Player 2の勝利！");
-            // ゲーム終了処理を行うか、必要に応じて敗北の演出を再生するなどの処理を行う
+            gameEnded = true; // ゲーム終了フラグを設定
+            player2.SetActive(true);
+            restart.SetActive(true);
+            title.SetActive(true);
         }
     }
 
@@ -181,5 +204,17 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("ゲームスタート");
         SceneManager.LoadScene("Main");
+    }
+
+    public void RestartButton()
+    {
+        Debug.Log("再戦");
+        SceneManager.LoadScene("Main");
+    }
+
+    public void ResetButton()
+    {
+        Debug.Log("タイトルに戻る");
+        SceneManager.LoadScene("Title");
     }
 }
