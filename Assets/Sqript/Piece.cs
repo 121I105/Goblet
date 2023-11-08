@@ -58,8 +58,30 @@ public class Piece : MonoBehaviour
                 }
                 else
                 {
+                    
+
+
                     // 駒の新しい位置を地面のセルの位置に基づいて設定
                     Vector3 newPiecePosition = hit.collider.transform.position + new Vector3(0, 2, 0); // 2は駒の高さとして仮定
+
+                    // ここから追加機能のコードを組み込む
+                    Piece existingPiece = hit.collider.GetComponent<Piece>();
+
+                    // クリックした場所に駒が存在する場合
+                    if (existingPiece != null && existingPiece != selectedPiece)
+                    {
+
+                        Strength existingStrength = existingPiece.GetComponent<Strength>();
+                        Strength movingStrength = selectedPiece.GetComponent<Strength>();
+
+                        // 選択している駒がクリックした場所の駒よりも弱いか同じ場合
+                        if (movingStrength.GetStrength() <= existingStrength.GetStrength())
+                        {
+                            Debug.Log("Moving piece is weaker or equal. Cannot place here.");
+                            return; // 駒の移動処理を中止
+                        }
+                    }
+                    // ここまで追加機能のコード
 
                     // 以前のコードのように、特定のセルの名前に基づいて位置を調整する場合
                     if (hit.collider.name == "cube1-1")
