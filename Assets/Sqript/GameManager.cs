@@ -56,8 +56,6 @@ public class GameManager : MonoBehaviour
     // 勝利条件を判定するメソッド
     private bool CheckWinCondition(int playerTag)
     {
-        // 勝利判定に使用する位置情報をグループごとに設定
-        // 各グループは、3つの位置情報(Vector3)から成り立っています
         Vector3[] winPositionsGroup1 = new Vector3[]
         {
             new Vector3(0f, 0f, 0f),
@@ -121,18 +119,14 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
-    // 各勝利グループに対して勝利条件を判定するメソッド
     private bool CheckWinGroup(Vector3[] winPositions, int playerTag)
     {
-        int winCount = 0; // 勝利条件を満たすプレイヤーの数をカウントする変数
+        int winCount = 0;
 
-        // 各勝利位置に対してプレイヤーの存在を確認し、勝利条件を満たす場合はwinCountを増やす
         foreach (Vector3 position in winPositions)
         {
-            int maxStrength = 0; // 勝利位置内の最大の強さを保持する変数
-            int opponentMaxStrength = 0; // 相手の最大の強さを保持する変数
+            int maxStrength = 0;
 
-            // 勝利位置内のコライダーを取得し、プレイヤータグに一致するプレイヤーの強さを比較し、最大の強さを求める
             Collider[] colliders = Physics.OverlapBox(position, new Vector3(0.6f, 0.6f, 0.6f));
             foreach (var collider in colliders)
             {
@@ -144,35 +138,25 @@ public class GameManager : MonoBehaviour
                         maxStrength = Mathf.Max(maxStrength, strengthComponent.GetStrength());
                     }
                 }
-                else if (collider.CompareTag("Player" + (3 - playerTag))) // 相手のプレイヤータグを確認
-                {
-                    Strength strengthComponent = collider.GetComponent<Strength>();
-                    if (strengthComponent != null)
-                    {
-                        opponentMaxStrength = Mathf.Max(opponentMaxStrength, strengthComponent.GetStrength());
-                    }
-                }
             }
 
-            // 最大の強さが0より大きい（プレイヤーが存在する）場合、winCountを増やす
-            if (maxStrength > 0 && maxStrength > opponentMaxStrength)
+            if (maxStrength > 0)
             {
                 winCount++;
-                if (winCount == 3)
+                if (winCount >= 3)
                 {
-                    return true; // 勝利条件を満たすプレイヤーが3人いる場合、trueを返して勝利と判定する
+                    return true;
                 }
             }
         }
 
-        return false; // 勝利条件を満たすプレイヤーが3人未満の場合、falseを返して勝利と判定しない
+        return false;
     }
 
-
-    // Updateメソッドはフレームごとに呼び出されるメソッドで、ゲームの状態を更新する処理を記述する
+    // Update is called once per frame
     void Update()
     {
-        // ゲームが既に終了している場合は何もせずに終了する
+        // ゲームが既に終了している場合は何もしない
         if (gameEnded)
         {
             return;
@@ -181,19 +165,19 @@ public class GameManager : MonoBehaviour
         // 勝利条件を判定する
         if (CheckWinCondition(1))
         {
-            Debug.Log("Player 1の勝利！"); // プレイヤー1が勝利した場合のログを出力
+            Debug.Log("Player 1の勝利！");
             gameEnded = true; // ゲーム終了フラグを設定
-            player1.SetActive(true); // プレイヤー1の表示をアクティブにする
-            restart.SetActive(true); // リスタートボタンの表示をアクティブにする
-            title.SetActive(true); // タイトル画面へ戻るボタンの表示をアクティブにする
+            player1.SetActive(true);
+            restart.SetActive(true);
+            title.SetActive(true);
         }
         else if (CheckWinCondition(2))
         {
-            Debug.Log("Player 2の勝利！"); // プレイヤー2が勝利した場合のログを出力
+            Debug.Log("Player 2の勝利！");
             gameEnded = true; // ゲーム終了フラグを設定
-            player2.SetActive(true); // プレイヤー2の表示をアクティブにする
-            restart.SetActive(true); // リスタートボタンの表示をアクティブにする
-            title.SetActive(true); // タイトル画面へ戻るボタンの表示をアクティブにする
+            player2.SetActive(true);
+            restart.SetActive(true);
+            title.SetActive(true);
         }
     }
 
