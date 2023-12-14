@@ -36,6 +36,11 @@ public class GameManager : MonoBehaviour
     public GameObject player2;
     public GameObject restart;
     public GameObject title;
+    public AudioSource audioSource;
+    public AudioClip checkSound;
+    public AudioClip victorySound;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -186,6 +191,8 @@ public class GameManager : MonoBehaviour
             player1.SetActive(true); // プレイヤー1の表示をアクティブにする
             restart.SetActive(true); // リスタートボタンの表示をアクティブにする
             title.SetActive(true); // タイトル画面へ戻るボタンの表示をアクティブにする
+            audioSource.PlayOneShot(victorySound);
+
         }
         else if (CheckWinCondition(2))
         {
@@ -194,6 +201,8 @@ public class GameManager : MonoBehaviour
             player2.SetActive(true); // プレイヤー2の表示をアクティブにする
             restart.SetActive(true); // リスタートボタンの表示をアクティブにする
             title.SetActive(true); // タイトル画面へ戻るボタンの表示をアクティブにする
+            audioSource.PlayOneShot(victorySound);
+
         }
     }
 
@@ -220,17 +229,21 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("ゲームスタート");
         SceneManager.LoadScene("Main");
+
+
     }
 
     public void RestartButton()
     {
         Debug.Log("再戦");
         SceneManager.LoadScene("Main");
+        
     }
 
     public void ResetButton()
     {
         Debug.Log("タイトルに戻る");
         SceneManager.LoadScene("Title");
+        
     }
 }

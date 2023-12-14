@@ -16,7 +16,10 @@ public class Piece : MonoBehaviour
     public Material MaterialBlue; // ブルーマテリアル
     public Material MaterialOrange;//オレンジマテリアル
     public Material MaterialGreen; // 選択時のマテリアル
-  
+    public AudioSource audioSource;
+    public AudioClip clickSound;
+    public AudioClip missSound;
+    public AudioClip getSound;
 
     private bool isGrabbing; // マウスがつかんでいるかどうかのフラグ
     private GameManager gameManager; // GameManagerへの参照
@@ -59,6 +62,7 @@ public class Piece : MonoBehaviour
                         selectedPiece = hit.transform;
                         // 駒のマテリアルを緑色に変更
                         selectedPiece.GetComponent<Renderer>().material = MaterialGreen;
+                        audioSource.PlayOneShot(clickSound);
 
                     }
                     else if (hit.collider.CompareTag("Player2") && gameManager.CurrentPlayer == (int)PieceTeam.Orange)
@@ -67,6 +71,7 @@ public class Piece : MonoBehaviour
                         selectedPiece = hit.transform;
                         // 駒のマテリアルを緑色に変更
                         selectedPiece.GetComponent<Renderer>().material = MaterialGreen;
+                        audioSource.PlayOneShot(clickSound);
 
                     }
                 }
@@ -140,6 +145,8 @@ public class Piece : MonoBehaviour
                                 {
                                     selectedPiece.GetComponent<Renderer>().material = MaterialOrange;
                                 }
+                                audioSource.PlayOneShot(missSound);
+
 
                             }
                             else
@@ -181,6 +188,8 @@ public class Piece : MonoBehaviour
                         {
                             selectedPiece.GetComponent<Renderer>().material = MaterialOrange;
                         }
+                        audioSource.PlayOneShot(getSound);
+
 
 
                         // ターンを切り替える
