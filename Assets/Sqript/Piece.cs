@@ -45,7 +45,6 @@ public class Piece : MonoBehaviour
             {
                 if (selectedPiece == null)
                 {
-
                     if (hit.collider.CompareTag("Player1") && gameManager.CurrentPlayer == (int)PieceTeam.Blue)
                     {
                         // Player1のターンでPlayer1の駒を選択
@@ -122,55 +121,14 @@ public class Piece : MonoBehaviour
                         newPiecePosition = new Vector3(2.5f, 2, 2.5f);
                     }
 
-                    // 新しい位置でレイキャストを使用して駒を検出
-                    RaycastHit hitInfo;
-                    bool movePerformed = false;
+                    // 最終的に駒の位置を更新
+                    selectedPiece.position = newPiecePosition;
 
-                    if (Physics.Raycast(newPiecePosition, Vector3.down, out hitInfo, 2.5f))
-                    {
-                        if (hitInfo.collider.gameObject != selectedPiece.gameObject)
-                        {
-                            Strength strengthComponent = hitInfo.collider.GetComponent<Strength>();
-                            if (strengthComponent != null && strengthComponent.GetStrength() >= selectedPiece.GetComponent<Strength>().GetStrength())
-                            {
-                                // 移動不可の場合
-                                Debug.Log("移動できません: 目的地の駒が同等かそれ以上の強さです");
-                            }
-                            else
-                            {
-                                // 移動が許可された場合、駒の位置を更新
-                                selectedPiece.position = newPiecePosition;
-                                movePerformed = true;
-                            }
-                        }
-                        else
-                        {
-                            // 選択された駒以外に駒が検出されなかった場合、移動を実行
-                            selectedPiece.position = newPiecePosition;
-                            movePerformed = true;
-                        }
-                    }
-                    else
-                    {
-                        // レイキャストで駒が検出されなかった場合、移動を実行
-                        selectedPiece.position = newPiecePosition;
-                        movePerformed = true;
-                    }
-
-                    if (movePerformed)
-                    {
-                        // 最終的に駒の位置を更新
-                        selectedPiece.position = newPiecePosition;
-                        // ターンを切り替える
-                        gameManager.SwitchTurn();
-                    }
-
+                    // ターンを切り替える
+                    gameManager.SwitchTurn();
+                        
                     // 駒の選択を解除
                     selectedPiece = null;
-
-
-
-                        
                 }
             }
         }
