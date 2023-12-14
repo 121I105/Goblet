@@ -13,6 +13,10 @@ public enum PieceTeam
 public class Piece : MonoBehaviour
 {
     public PieceTeam team;   // 駒の所属チーム（青、オレンジ）
+    public Material MaterialBlue; // ブルーマテリアル
+    public Material MaterialOrange;//オレンジマテリアル
+    public Material MaterialGreen; // 選択時のマテリアル
+  
 
     private bool isGrabbing; // マウスがつかんでいるかどうかのフラグ
     private GameManager gameManager; // GameManagerへの参照
@@ -26,6 +30,9 @@ public class Piece : MonoBehaviour
     {
         // 平面の定義：法線ベクトル(Vector3.up)がy軸方向で、位置(Vector3.up)が原点上にある平面
         plane = new Plane(Vector3.up, Vector3.up);
+
+       
+
 
         // GameManagerへの参照を取得
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -50,17 +57,21 @@ public class Piece : MonoBehaviour
                     {
                         // Player1のターンでPlayer1の駒を選択
                         selectedPiece = hit.transform;
+                        // 駒のマテリアルを緑色に変更
+                        selectedPiece.GetComponent<Renderer>().material = MaterialGreen;
+
                     }
                     else if (hit.collider.CompareTag("Player2") && gameManager.CurrentPlayer == (int)PieceTeam.Orange)
                     {
                         // Player2のターンでPlayer2の駒を選択
                         selectedPiece = hit.transform;
+                        // 駒のマテリアルを緑色に変更
+                        selectedPiece.GetComponent<Renderer>().material = MaterialGreen;
+
                     }
                 }
                 else
                 {
-                    
-
 
                     // 駒の新しい位置を地面のセルの位置に基づいて設定
                     Vector3 newPiecePosition = hit.collider.transform.position + new Vector3(0, 2, 0); // 2は駒の高さとして仮定
@@ -68,21 +79,6 @@ public class Piece : MonoBehaviour
                     // ここから追加機能のコードを組み込む
                     Piece existingPiece = hit.collider.GetComponent<Piece>();
 
-                    // クリックした場所に駒が存在する場合
-                    if (existingPiece != null && existingPiece != selectedPiece)
-                    {
-
-                        Strength existingStrength = existingPiece.GetComponent<Strength>();
-                        Strength movingStrength = selectedPiece.GetComponent<Strength>();
-
-                        // 選択している駒がクリックした場所の駒よりも弱いか同じ場合
-                        if (movingStrength.GetStrength() <= existingStrength.GetStrength())
-                        {
-                            Debug.Log("Moving piece is weaker or equal. Cannot place here.");
-                            return; // 駒の移動処理を中止
-                        }
-                    }
-                    // ここまで追加機能のコード
 
                     // 以前のコードのように、特定のセルの名前に基づいて位置を調整する場合
                     if (hit.collider.name == "cube1-1")
@@ -135,12 +131,23 @@ public class Piece : MonoBehaviour
                             {
                                 // 移動不可の場合
                                 Debug.Log("移動できません: 目的地の駒が同等かそれ以上の強さです");
+                                // 駒のマテリアルを変更
+                                if (selectedPiece.CompareTag("Player1"))
+                                {
+                                    selectedPiece.GetComponent<Renderer>().material = MaterialBlue;
+                                }
+                                else if (selectedPiece.CompareTag("Player2"))
+                                {
+                                    selectedPiece.GetComponent<Renderer>().material = MaterialOrange;
+                                }
+
                             }
                             else
                             {
                                 // 移動が許可された場合、駒の位置を更新
                                 selectedPiece.position = newPiecePosition;
                                 movePerformed = true;
+
                             }
                         }
                         else
@@ -155,12 +162,27 @@ public class Piece : MonoBehaviour
                         // レイキャストで駒が検出されなかった場合、移動を実行
                         selectedPiece.position = newPiecePosition;
                         movePerformed = true;
+
+
                     }
 
-                    if (movePerformed)
+                    if (movePerformed == true)
                     {
+
                         // 最終的に駒の位置を更新
                         selectedPiece.position = newPiecePosition;
+
+                        // 駒のマテリアルを変更
+                        if (selectedPiece.CompareTag("Player1"))
+                        {
+                            selectedPiece.GetComponent<Renderer>().material = MaterialBlue;
+                        }
+                        else if (selectedPiece.CompareTag("Player2"))
+                        {
+                            selectedPiece.GetComponent<Renderer>().material = MaterialOrange;
+                        }
+
+
                         // ターンを切り替える
                         gameManager.SwitchTurn();
                     }
@@ -170,7 +192,7 @@ public class Piece : MonoBehaviour
 
 
 
-                        
+
                 }
             }
         }
