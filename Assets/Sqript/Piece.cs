@@ -84,48 +84,51 @@ public class Piece : MonoBehaviour
                     // ここから追加機能のコードを組み込む
                     Piece existingPiece = hit.collider.GetComponent<Piece>();
 
+                    // 新しい位置でレイキャストを使用して駒を検出
+                    RaycastHit hitInfo;
+                    bool movePerformed = false;
+
 
                     // 以前のコードのように、特定のセルの名前に基づいて位置を調整する場合
                     if (hit.collider.name == "cube1-1")
                     {
                         newPiecePosition = new Vector3(0, 2, 0);
                     }
-                    if (hit.collider.name == "cube1-2")
+                    else if (hit.collider.name == "cube1-2")
                     {
                         newPiecePosition = new Vector3(1.25f, 2, 0);
                     }
-                    if (hit.collider.name == "cube1-3")
+                    else if (hit.collider.name == "cube1-3")
                     {
                         newPiecePosition = new Vector3(2.5f, 2, 0);
                     }
-                    if (hit.collider.name == "cube2-1")
+                    else if (hit.collider.name == "cube2-1")
                     {
                         newPiecePosition = new Vector3(0, 2, 1.25f);
                     }
-                    if (hit.collider.name == "cube2-2")
+                    else if (hit.collider.name == "cube2-2")
                     {
                         newPiecePosition = new Vector3(1.25f, 2, 1.25f);
                     }
-                    if (hit.collider.name == "cube2-3")
+                    else if (hit.collider.name == "cube2-3")
                     {
                         newPiecePosition = new Vector3(2.5f, 2, 1.25f);
                     }
-                    if (hit.collider.name == "cube3-1")
+                    else if (hit.collider.name == "cube3-1")
                     {
                         newPiecePosition = new Vector3(0, 2, 2.5f);
                     }
-                    if (hit.collider.name == "cube3-2")
+                    else if (hit.collider.name == "cube3-2")
                     {
                         newPiecePosition = new Vector3(1.25f, 2, 2.5f);
                     }
-                    if (hit.collider.name == "cube3-3")
+                    else if (hit.collider.name == "cube3-3")
                     {
                         newPiecePosition = new Vector3(2.5f, 2, 2.5f);
                     }
+                    
+                    
 
-                    // 新しい位置でレイキャストを使用して駒を検出
-                    RaycastHit hitInfo;
-                    bool movePerformed = false;
 
                     if (Physics.Raycast(newPiecePosition, Vector3.down, out hitInfo, 2.5f))
                     {
@@ -157,6 +160,8 @@ public class Piece : MonoBehaviour
 
                             }
                         }
+                        
+                        
                         else
                         {
                             // 選択された駒以外に駒が検出されなかった場合、移動を実行
@@ -172,6 +177,8 @@ public class Piece : MonoBehaviour
 
 
                     }
+
+                    
 
                     if (movePerformed == true)
                     {

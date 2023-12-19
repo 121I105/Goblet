@@ -229,6 +229,8 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("ゲームスタート");
         SceneManager.LoadScene("Main");
+        audioSource.PlayOneShot(checkSound);
+
 
 
     }
@@ -237,13 +239,17 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("再戦");
         SceneManager.LoadScene("Main");
-        
+        audioSource.PlayOneShot(checkSound);
+
+
     }
 
     public void ResetButton()
     {
         Debug.Log("タイトルに戻る");
         SceneManager.LoadScene("Title");
-        
+        audioSource.PlayOneShot(checkSound);
+
+
     }
 }
