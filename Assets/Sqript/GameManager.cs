@@ -40,8 +40,6 @@ public class GameManager : MonoBehaviour
     public AudioClip checkSound;
     public AudioClip victorySound;
 
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -225,14 +223,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void StartButton()
+    public void StartButton1()
     {
         Debug.Log("ゲームスタート");
         SceneManager.LoadScene("Main");
         audioSource.PlayOneShot(checkSound);
+    }
 
-
-
+    public void StartButton2()
+    {
+        Debug.Log("ゲームスタート");
+        SceneManager.LoadScene("AI");
+        audioSource.PlayOneShot(checkSound);
     }
 
     public void RestartButton()
